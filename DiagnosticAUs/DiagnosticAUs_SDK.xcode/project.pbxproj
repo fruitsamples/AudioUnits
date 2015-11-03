@@ -1,0 +1,1690 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		089C1669FE841209C02AAC07 = {
+			buildSettings = {
+			};
+			buildStyles = (
+				F5809CA7017675F201AE2950,
+				F5809CA8017675F201AE2950,
+				A9C0F2930491470100167A97,
+			);
+			hasScannedForEncodings = 1;
+			isa = PBXProject;
+			mainGroup = 089C166AFE841209C02AAC07;
+			projectDirPath = "";
+			targets = (
+				A9E1A9FC0614FAB100746C53,
+				A96602BB0619FBEF0095E130,
+			);
+		};
+		089C166AFE841209C02AAC07 = {
+			children = (
+				F5D19AF9031761B801CA2136,
+				089C1671FE841209C02AAC07,
+				19C28FB4FE9D528D11CA2CBB,
+			);
+			isa = PBXGroup;
+			name = SampleAudioUnits;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 = {
+			children = (
+				F5809CC30176770301AE2950,
+				A9A827580490093100A111D2,
+				F5809CE3017680D901AE2950,
+				4CF0B68E044CAD9300CA2588,
+				A9E1AA5A0616090900746C53,
+			);
+			isa = PBXGroup;
+			name = "External Frameworks and Libraries";
+			path = /System/Library/Frameworks;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+//080
+//081
+//082
+//083
+//084
+//190
+//191
+//192
+//193
+//194
+		19C28FB4FE9D528D11CA2CBB = {
+			children = (
+				A9E1AA210614FAB100746C53,
+				A96602DD0619FBEF0095E130,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//190
+//191
+//192
+//193
+//194
+//3E0
+//3E1
+//3E2
+//3E3
+//3E4
+		3E049B6706711ECD0035A433 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = CAHostTimeBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		3E049B6806711ECD0035A433 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = CAHostTimeBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		3E049B6D06711EEF0035A433 = {
+			fileRef = 3E049B6706711ECD0035A433;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		3E049B6E06711EF00035A433 = {
+			fileRef = 3E049B6806711ECD0035A433;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//3E0
+//3E1
+//3E2
+//3E3
+//3E4
+//4C0
+//4C1
+//4C2
+//4C3
+//4C4
+		4CF0B68E044CAD9300CA2588 = {
+			fallbackIsa = PBXFileReference;
+			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
+			name = AudioToolbox.framework;
+			path = /Volumes/Luthien/bill/Projects/SUPanther/CoreAudio/AudioToolbox.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+//4C0
+//4C1
+//4C2
+//4C3
+//4C4
+//790
+//791
+//792
+//793
+//794
+		7972CA2204D096C500F1FB05 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = CAAudioChannelLayout.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		7972CA2304D096C500F1FB05 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = CAAudioChannelLayout.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//790
+//791
+//792
+//793
+//794
+//A70
+//A71
+//A72
+//A73
+//A74
+		A7FFFD3E02416EF203CA20A2 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUInlineEffectBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A7FFFD3F02416EF203CA20A2 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUInlineEffectBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A7FFFD4002416EF203CA20A2 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = MusicDeviceBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A7FFFD4102416EF203CA20A2 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = MusicDeviceBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//A70
+//A71
+//A72
+//A73
+//A74
+//A90
+//A91
+//A92
+//A93
+//A94
+		A93FEDBA0641DC7900B3210A = {
+			children = (
+				A9E1AA290614FBC800746C53,
+				A99FCA4005ED95F800328F9F,
+				A9579F36061766800078B268,
+				A9579F440618D9C80078B268,
+				A9E1AA250614FB9F00746C53,
+				A9E1AA39061601B400746C53,
+			);
+			isa = PBXGroup;
+			name = "Pulse Detector";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A93FEDC00641DC7D00B3210A = {
+			children = (
+				A96602DF0619FC4D0095E130,
+				A96602DE0619FC4D0095E130,
+				A96602E00619FC4D0095E130,
+				A96602E10619FC4D0095E130,
+				A9D4D1A2061CD4D300600FB1,
+				A9D4D1A4061CD68700600FB1,
+			);
+			isa = PBXGroup;
+			name = "Valid Samples";
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9579F36061766800078B268 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUPulseShared.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9579F440618D9C80078B268 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			path = AUPulseDetector.r;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9579F450618D9C80078B268 = {
+			fileRef = A9579F440618D9C80078B268;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602BB0619FBEF0095E130 = {
+			buildPhases = (
+				A96602BC0619FBEF0095E130,
+				A96602C90619FBEF0095E130,
+				A96602CA0619FBEF0095E130,
+				A96602D70619FBEF0095E130,
+				A96602DB0619FBEF0095E130,
+			);
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				EXPORTED_SYMBOLS_FILE = AUValidSamples.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_VERSION = 3.3;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = "";
+				OPTIMIZATION_CFLAGS = "-O3";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle";
+				OTHER_REZFLAGS = "-I ../../CAServices/AUPublic/AUBase -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
+				PRODUCT_NAME = AUValidSamples;
+				SECTORDER_FLAGS = "";
+				USE_GCC3_PFE_SUPPORT = YES;
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = component;
+			};
+			dependencies = (
+			);
+			isa = PBXBundleTarget;
+			name = AUValidSamples;
+			productInstallPath = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+			productName = SampleAudioUnits;
+			productReference = A96602DD0619FBEF0095E130;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>AUValidSamples</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.audiounit.validsamples</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>0.0.1d1</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+</dict>
+</plist>
+";
+		};
+		A96602BC0619FBEF0095E130 = {
+			buildActionMask = 2147483647;
+			files = (
+				A96602BD0619FBEF0095E130,
+				A96602BE0619FBEF0095E130,
+				A96602BF0619FBEF0095E130,
+				A96602C00619FBEF0095E130,
+				A96602C10619FBEF0095E130,
+				A96602C20619FBEF0095E130,
+				A96602C40619FBEF0095E130,
+				A96602C50619FBEF0095E130,
+				A96602C60619FBEF0095E130,
+				A96602C80619FBEF0095E130,
+				A96602E50619FC4D0095E130,
+				A9D4D1A3061CD4D400600FB1,
+				A9D4D1A7061CDCEC00600FB1,
+				A9D4D1AD061CE3AE00600FB1,
+				A9D4D1AF061CE3BA00600FB1,
+				A9D4D1B1061CE3C900600FB1,
+				A9D4D1B3061CE3D400600FB1,
+				A9D45BAD065D83310039D748,
+				3E049B6E06711EF00035A433,
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96602BD0619FBEF0095E130 = {
+			fileRef = F5809CAC0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602BE0619FBEF0095E130 = {
+			fileRef = F5809CAE0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602BF0619FBEF0095E130 = {
+			fileRef = F5809CB00176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C00619FBEF0095E130 = {
+			fileRef = F5809CB20176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C10619FBEF0095E130 = {
+			fileRef = F5809CB50176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C20619FBEF0095E130 = {
+			fileRef = F5809CB80176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C40619FBEF0095E130 = {
+			fileRef = EC466E9D02C2636A0DCA2268;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C50619FBEF0095E130 = {
+			fileRef = A98C0E38048F09C5009E5A2F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C60619FBEF0095E130 = {
+			fileRef = F5809CBB0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C80619FBEF0095E130 = {
+			fileRef = 7972CA2304D096C500F1FB05;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602C90619FBEF0095E130 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96602CA0619FBEF0095E130 = {
+			buildActionMask = 2147483647;
+			files = (
+				A96602CB0619FBEF0095E130,
+				A96602CC0619FBEF0095E130,
+				A96602CD0619FBEF0095E130,
+				A96602CE0619FBEF0095E130,
+				A96602CF0619FBEF0095E130,
+				A96602D00619FBEF0095E130,
+				A96602D10619FBEF0095E130,
+				A96602D30619FBEF0095E130,
+				A96602D40619FBEF0095E130,
+				A96602D60619FBEF0095E130,
+				A96602E20619FC4D0095E130,
+				A96602E30619FC4D0095E130,
+				A9D4D1A5061CD68700600FB1,
+				A9D4D1A6061CDCEB00600FB1,
+				A9D4D1AC061CE3AD00600FB1,
+				A9D4D1AE061CE3B900600FB1,
+				A9D4D1B0061CE3C900600FB1,
+				A9D4D1B2061CE3D300600FB1,
+				A9D4D1B5061CFECE00600FB1,
+				A9D45B2B065D818D0039D748,
+				3E049B6D06711EEF0035A433,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96602CB0619FBEF0095E130 = {
+			fileRef = F5809CAB0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602CC0619FBEF0095E130 = {
+			fileRef = F5809CAD0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602CD0619FBEF0095E130 = {
+			fileRef = F5809CAF0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602CE0619FBEF0095E130 = {
+			fileRef = F5809CB10176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602CF0619FBEF0095E130 = {
+			fileRef = F5809CB40176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D00619FBEF0095E130 = {
+			fileRef = F5809CB70176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D10619FBEF0095E130 = {
+			fileRef = ECC36E8902D139760DCA2268;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D30619FBEF0095E130 = {
+			fileRef = A98C0E37048F09C5009E5A2F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D40619FBEF0095E130 = {
+			fileRef = F5809CBA0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D60619FBEF0095E130 = {
+			fileRef = 7972CA2204D096C500F1FB05;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D70619FBEF0095E130 = {
+			buildActionMask = 2147483647;
+			files = (
+				A96602D80619FBEF0095E130,
+				A96602D90619FBEF0095E130,
+				A96602DA0619FBEF0095E130,
+				A9D4D1A8061CE39200600FB1,
+				A9D4D1AB061CE3A200600FB1,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96602D80619FBEF0095E130 = {
+			fileRef = F5809CC30176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602D90619FBEF0095E130 = {
+			fileRef = F5809CE3017680D901AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602DA0619FBEF0095E130 = {
+			fileRef = A9A827580490093100A111D2;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602DB0619FBEF0095E130 = {
+			buildActionMask = 2147483647;
+			files = (
+				A96602E40619FC4D0095E130,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A96602DD0619FBEF0095E130 = {
+			explicitFileType = wrapper.cfbundle;
+			fallbackIsa = PBXFileReference;
+			isa = PBXBundleReference;
+			path = AUValidSamples.component;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A96602DE0619FC4D0095E130 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUValidSamples.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A96602DF0619FC4D0095E130 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.exports;
+			path = AUValidSamples.exp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A96602E00619FC4D0095E130 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			path = AUValidSamples.r;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A96602E10619FC4D0095E130 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUValidSamplesVersion.h;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A96602E20619FC4D0095E130 = {
+			fileRef = A96602DE0619FC4D0095E130;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602E30619FC4D0095E130 = {
+			fileRef = A96602DF0619FC4D0095E130;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602E40619FC4D0095E130 = {
+			fileRef = A96602E00619FC4D0095E130;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A96602E50619FC4D0095E130 = {
+			fileRef = A96602E10619FC4D0095E130;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A98C0E37048F09C5009E5A2F = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUDebugDispatcher.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A98C0E38048F09C5009E5A2F = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUDebugDispatcher.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A99FCA4005ED95F800328F9F = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUPulseDetector.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A9A827580490093100A111D2 = {
+			fallbackIsa = PBXFileReference;
+			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
+			name = CoreAudio.framework;
+			path = /System/Library/Frameworks/CoreAudio.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		A9C0F2930491470100167A97 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				OTHER_CFLAGS = "\U0001-DAU_DEBUG_DISPATCHER=1";
+			};
+			isa = PBXBuildStyle;
+			name = AUDebugDispatcher;
+		};
+		A9D45B2A065D818D0039D748 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = CAStreamBasicDescription.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9D45B2B065D818D0039D748 = {
+			fileRef = A9D45B2A065D818D0039D748;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D45B2C065D818D0039D748 = {
+			fileRef = A9D45B2A065D818D0039D748;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D45BAC065D83310039D748 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUBuffer.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9D45BAD065D83310039D748 = {
+			fileRef = A9D45BAC065D83310039D748;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D45BAE065D83310039D748 = {
+			fileRef = A9D45BAC065D83310039D748;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1A2061CD4D300600FB1 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUValidSamplesShared.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9D4D1A3061CD4D400600FB1 = {
+			fileRef = A9D4D1A2061CD4D300600FB1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1A4061CD68700600FB1 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUValidSamplesView.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9D4D1A5061CD68700600FB1 = {
+			fileRef = A9D4D1A4061CD68700600FB1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1A6061CDCEB00600FB1 = {
+			fileRef = A9E1AA44061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1A7061CDCEC00600FB1 = {
+			fileRef = A9E1AA45061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1A8061CE39200600FB1 = {
+			fileRef = 4CF0B68E044CAD9300CA2588;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1AB061CE3A200600FB1 = {
+			fileRef = A9E1AA5A0616090900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1AC061CE3AD00600FB1 = {
+			fileRef = A9E1AA5E0616093F00746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1AD061CE3AE00600FB1 = {
+			fileRef = A9E1AA5F0616093F00746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1AE061CE3B900600FB1 = {
+			fileRef = A9E1AA46061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1AF061CE3BA00600FB1 = {
+			fileRef = A9E1AA47061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1B0061CE3C900600FB1 = {
+			fileRef = A9E1AA4B061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1B1061CE3C900600FB1 = {
+			fileRef = A9E1AA4C061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1B2061CE3D300600FB1 = {
+			fileRef = A9E1AA49061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1B3061CE3D400600FB1 = {
+			fileRef = A9E1AA4A061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1B5061CFECE00600FB1 = {
+			fileRef = A9E1AA48061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9D4D1BB061D054500600FB1 = {
+			fileRef = A9579F36061766800078B268;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1A9FC0614FAB100746C53 = {
+			buildPhases = (
+				A9E1A9FD0614FAB100746C53,
+				A9E1AA0C0614FAB100746C53,
+				A9E1AA0D0614FAB100746C53,
+				A9E1AA1B0614FAB100746C53,
+				A9E1AA1F0614FAB100746C53,
+			);
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				EXPORTED_SYMBOLS_FILE = AUPulseDetector.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_VERSION = 3.3;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = "";
+				OPTIMIZATION_CFLAGS = "-O3";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle";
+				OTHER_REZFLAGS = "-I ../../CAServices/AUPublic/AUBase -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
+				PRODUCT_NAME = AUPulseDetector;
+				SECTORDER_FLAGS = "";
+				USE_GCC3_PFE_SUPPORT = YES;
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = component;
+			};
+			dependencies = (
+			);
+			isa = PBXBundleTarget;
+			name = AUPulseDetector;
+			productInstallPath = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+			productName = SampleAudioUnits;
+			productReference = A9E1AA210614FAB100746C53;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>AUPulseDetector</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.audiounit.pulsedetector</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>0.0.1d1</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+</dict>
+</plist>
+";
+		};
+		A9E1A9FD0614FAB100746C53 = {
+			buildActionMask = 2147483647;
+			files = (
+				A9E1A9FE0614FAB100746C53,
+				A9E1A9FF0614FAB100746C53,
+				A9E1AA000614FAB100746C53,
+				A9E1AA010614FAB100746C53,
+				A9E1AA020614FAB100746C53,
+				A9E1AA030614FAB100746C53,
+				A9E1AA050614FAB100746C53,
+				A9E1AA060614FAB100746C53,
+				A9E1AA090614FAB100746C53,
+				A9E1AA0B0614FAB100746C53,
+				A9E1AA270614FB9F00746C53,
+				A9E1AA8506160F2800746C53,
+				A9E1AA8806160F2D00746C53,
+				A9E1AA8906160F2E00746C53,
+				A9E1AA8B06160F2F00746C53,
+				A9E1AA8E06160F3100746C53,
+				A9E1AA9006160F3300746C53,
+				A9D4D1BB061D054500600FB1,
+				A9D45BAE065D83310039D748,
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1A9FE0614FAB100746C53 = {
+			fileRef = F5809CAC0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1A9FF0614FAB100746C53 = {
+			fileRef = F5809CAE0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA000614FAB100746C53 = {
+			fileRef = F5809CB00176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA010614FAB100746C53 = {
+			fileRef = F5809CB20176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA020614FAB100746C53 = {
+			fileRef = F5809CB50176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA030614FAB100746C53 = {
+			fileRef = F5809CB80176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA050614FAB100746C53 = {
+			fileRef = EC466E9D02C2636A0DCA2268;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA060614FAB100746C53 = {
+			fileRef = A98C0E38048F09C5009E5A2F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA090614FAB100746C53 = {
+			fileRef = 7972CA2304D096C500F1FB05;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA0B0614FAB100746C53 = {
+			fileRef = F5809CBB0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA0C0614FAB100746C53 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1AA0D0614FAB100746C53 = {
+			buildActionMask = 2147483647;
+			files = (
+				A9E1AA0E0614FAB100746C53,
+				A9E1AA0F0614FAB100746C53,
+				A9E1AA100614FAB100746C53,
+				A9E1AA110614FAB100746C53,
+				A9E1AA120614FAB100746C53,
+				A9E1AA130614FAB100746C53,
+				A9E1AA140614FAB100746C53,
+				A9E1AA160614FAB100746C53,
+				A9E1AA170614FAB100746C53,
+				A9E1AA190614FAB100746C53,
+				A9E1AA1A0614FAB100746C53,
+				A9E1AA8406160F2700746C53,
+				A9E1AA8A06160F2E00746C53,
+				A9E1AA8C06160F3000746C53,
+				A9E1AA8D06160F3000746C53,
+				A9E1AA8F06160F3200746C53,
+				A9E1AA9106160F3300746C53,
+				A9E1AA9206160F3B00746C53,
+				A9D45B2C065D818D0039D748,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1AA0E0614FAB100746C53 = {
+			fileRef = F5809CAB0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA0F0614FAB100746C53 = {
+			fileRef = F5809CAD0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA100614FAB100746C53 = {
+			fileRef = F5809CAF0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA110614FAB100746C53 = {
+			fileRef = F5809CB10176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA120614FAB100746C53 = {
+			fileRef = F5809CB40176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA130614FAB100746C53 = {
+			fileRef = F5809CB70176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA140614FAB100746C53 = {
+			fileRef = ECC36E8902D139760DCA2268;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA160614FAB100746C53 = {
+			fileRef = A98C0E37048F09C5009E5A2F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA170614FAB100746C53 = {
+			fileRef = 7972CA2204D096C500F1FB05;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA190614FAB100746C53 = {
+			fileRef = A99FCA4005ED95F800328F9F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA1A0614FAB100746C53 = {
+			fileRef = F5809CBA0176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA1B0614FAB100746C53 = {
+			buildActionMask = 2147483647;
+			files = (
+				A9E1AA1C0614FAB100746C53,
+				A9E1AA1D0614FAB100746C53,
+				A9E1AA1E0614FAB100746C53,
+				A9E1AA8606160F2A00746C53,
+				A9E1AA8706160F2A00746C53,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1AA1C0614FAB100746C53 = {
+			fileRef = F5809CC30176770301AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA1D0614FAB100746C53 = {
+			fileRef = F5809CE3017680D901AE2950;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA1E0614FAB100746C53 = {
+			fileRef = A9A827580490093100A111D2;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA1F0614FAB100746C53 = {
+			buildActionMask = 2147483647;
+			files = (
+				A9579F450618D9C80078B268,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1AA210614FAB100746C53 = {
+			explicitFileType = wrapper.cfbundle;
+			fallbackIsa = PBXFileReference;
+			isa = PBXBundleReference;
+			path = AUPulseDetector.component;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A9E1AA250614FB9F00746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUPulseDetectorVersion.h;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A9E1AA270614FB9F00746C53 = {
+			fileRef = A9E1AA250614FB9F00746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA290614FBC800746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.exports;
+			path = AUPulseDetector.exp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A9E1AA39061601B400746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUPulseDetectorView.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		A9E1AA43061606F900746C53 = {
+			children = (
+				A9E1AA44061606F900746C53,
+				A9E1AA45061606F900746C53,
+				A9E1AA46061606F900746C53,
+				A9E1AA47061606F900746C53,
+				A9E1AA48061606F900746C53,
+				A9E1AA49061606F900746C53,
+				A9E1AA4A061606F900746C53,
+				A9E1AA4B061606F900746C53,
+				A9E1AA4C061606F900746C53,
+			);
+			isa = PBXGroup;
+			path = AUCarbonViewBase;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA44061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUCarbonViewBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA45061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUCarbonViewBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA46061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUCarbonViewControl.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA47061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUCarbonViewControl.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA48061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUCarbonViewDispatch.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA49061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUControlGroup.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA4A061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUControlGroup.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA4B061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = CarbonEventHandler.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA4C061606F900746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = CarbonEventHandler.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA56061608A300746C53 = {
+			children = (
+				A9E1AA57061608A300746C53,
+			);
+			isa = PBXGroup;
+			path = AUViewBase;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA57061608A300746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUViewLocalizedStringKeys.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA5A0616090900746C53 = {
+			fallbackIsa = PBXFileReference;
+			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
+			name = Carbon.framework;
+			path = /System/Library/Frameworks/Carbon.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		A9E1AA5E0616093F00746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = CAAUParameter.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA5F0616093F00746C53 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = CAAUParameter.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		A9E1AA8406160F2700746C53 = {
+			fileRef = A9E1AA5E0616093F00746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8506160F2800746C53 = {
+			fileRef = A9E1AA5F0616093F00746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8606160F2A00746C53 = {
+			fileRef = 4CF0B68E044CAD9300CA2588;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8706160F2A00746C53 = {
+			fileRef = A9E1AA5A0616090900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8806160F2D00746C53 = {
+			fileRef = A9E1AA57061608A300746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8906160F2E00746C53 = {
+			fileRef = A9E1AA4C061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8A06160F2E00746C53 = {
+			fileRef = A9E1AA4B061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8B06160F2F00746C53 = {
+			fileRef = A9E1AA4A061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8C06160F3000746C53 = {
+			fileRef = A9E1AA49061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8D06160F3000746C53 = {
+			fileRef = A9E1AA48061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8E06160F3100746C53 = {
+			fileRef = A9E1AA47061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA8F06160F3200746C53 = {
+			fileRef = A9E1AA46061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA9006160F3300746C53 = {
+			fileRef = A9E1AA45061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA9106160F3300746C53 = {
+			fileRef = A9E1AA44061606F900746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		A9E1AA9206160F3B00746C53 = {
+			fileRef = A9E1AA39061601B400746C53;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//A90
+//A91
+//A92
+//A93
+//A94
+//EC0
+//EC1
+//EC2
+//EC3
+//EC4
+		EC466E6D02C2636A0DCA2268 = {
+			children = (
+				3E049B6706711ECD0035A433,
+				3E049B6806711ECD0035A433,
+				A9D45B2A065D818D0039D748,
+				EC466E9D02C2636A0DCA2268,
+				7972CA2204D096C500F1FB05,
+				7972CA2304D096C500F1FB05,
+				A9E1AA5E0616093F00746C53,
+				A9E1AA5F0616093F00746C53,
+			);
+			isa = PBXGroup;
+			name = PublicUtility;
+			path = /Developer/Examples/CoreAudio/PublicUtility;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		EC466E9D02C2636A0DCA2268 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = CAStreamBasicDescription.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		ECC36E8902D139760DCA2268 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUBuffer.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//EC0
+//EC1
+//EC2
+//EC3
+//EC4
+//F50
+//F51
+//F52
+//F53
+//F54
+		F5809CA7017675F201AE2950 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OPTIMIZATION_CFLAGS = "-O0";
+				ZERO_LINK = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		F5809CA8017675F201AE2950 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				ZERO_LINK = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+		F5809CA90176770301AE2950 = {
+			children = (
+				F5809CAA0176770301AE2950,
+				F5809CB90176770301AE2950,
+				F5809CBE0176770301AE2950,
+				A9E1AA43061606F900746C53,
+				A9E1AA56061608A300746C53,
+			);
+			isa = PBXGroup;
+			name = AUPublic;
+			path = /Developer/Examples/CoreAudio/AudioUnits/AUPublic;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		F5809CAA0176770301AE2950 = {
+			children = (
+				F5809CAB0176770301AE2950,
+				F5809CAC0176770301AE2950,
+				F5809CAD0176770301AE2950,
+				F5809CAE0176770301AE2950,
+				F5809CAF0176770301AE2950,
+				F5809CB00176770301AE2950,
+				F5809CB10176770301AE2950,
+				F5809CB20176770301AE2950,
+				F5D19AFC0317640501CA2136,
+				F5809CB40176770301AE2950,
+				F5809CB50176770301AE2950,
+				F5809CB70176770301AE2950,
+				F5809CB80176770301AE2950,
+			);
+			isa = PBXGroup;
+			path = AUBase;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CAB0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CAC0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CAD0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUDispatch.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CAE0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUDispatch.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CAF0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUInputElement.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB00176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUInputElement.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB10176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUOutputElement.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB20176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUOutputElement.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB40176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUScopeElement.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB50176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUScopeElement.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB70176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = ComponentBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB80176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = ComponentBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CB90176770301AE2950 = {
+			children = (
+				F5809CBA0176770301AE2950,
+				F5809CBB0176770301AE2950,
+				A7FFFD3E02416EF203CA20A2,
+				A7FFFD3F02416EF203CA20A2,
+				F5B1EF1802B034AA01000103,
+				F5B1EF1902B034AA01000103,
+				F5B1EF1A02B034AA01000103,
+				F5B1EF1B02B034AA01000103,
+				F5809CBC0176770301AE2950,
+				F5809CBD0176770301AE2950,
+				A7FFFD4002416EF203CA20A2,
+				A7FFFD4102416EF203CA20A2,
+			);
+			isa = PBXGroup;
+			path = OtherBases;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CBA0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUEffectBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CBB0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUEffectBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CBC0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUOutputBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CBD0176770301AE2950 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUOutputBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CBE0176770301AE2950 = {
+			children = (
+				ECC36E8902D139760DCA2268,
+				A9D45BAC065D83310039D748,
+				A98C0E37048F09C5009E5A2F,
+				A98C0E38048F09C5009E5A2F,
+			);
+			isa = PBXGroup;
+			path = Utility;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CC30176770301AE2950 = {
+			fallbackIsa = PBXFileReference;
+			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
+			name = CoreServices.framework;
+			path = /System/Library/Frameworks/CoreServices.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		F5809CDE0176790801AE2950 = {
+			children = (
+				A93FEDC00641DC7D00B3210A,
+				A93FEDBA0641DC7900B3210A,
+			);
+			isa = PBXGroup;
+			name = AUs;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5809CE3017680D901AE2950 = {
+			fallbackIsa = PBXFileReference;
+			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
+			name = AudioUnit.framework;
+			path = /Volumes/Luthien/bill/Projects/SUPanther/CoreAudio/AudioUnit.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		F5B1EF1802B034AA01000103 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUMIDIBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5B1EF1902B034AA01000103 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUMIDIBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5B1EF1A02B034AA01000103 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			path = AUMIDIEffectBase.cpp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5B1EF1B02B034AA01000103 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = AUMIDIEffectBase.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5D19AF9031761B801CA2136 = {
+			children = (
+				F5809CDE0176790801AE2950,
+				F5809CA90176770301AE2950,
+				EC466E6D02C2636A0DCA2268,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5D19AFC0317640501CA2136 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			path = AUResources.r;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+	};
+	rootObject = 089C1669FE841209C02AAC07;
+}
