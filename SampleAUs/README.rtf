@@ -1,0 +1,22 @@
+{\rtf1\mac\ansicpg10000\cocoartf102
+{\fonttbl\f0\fnil\fcharset77 HelveticaNeue-Bold;\f1\fnil\fcharset77 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww12480\viewh10520\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+
+\f0\b\fs24 \cf0 Installing AudioUnits for testing/debugging:
+\f1\b0 \
+\
+The easiest way to do this is the following:\
+\
+% cd ~/Library/Audio/Plug-Ins/Components\
+% ln -s /My/Development/Build/Dir/MyAU.component\
+\
+(or you may install in the System's directory: /Library/Audio/Plug-Ins/Components as root user)\
+\
+This creates a symbolic link to your component.  Assuming you've already built your AudioUnit, and afterwards create the sym-link, you'll need to log-out and log back in again for it to work.  Once you log in again, the Component Manager (coreservicesd) will follow your sym-link and register the components that it finds there.\
+\
+Then - AS LONG AS YOU DON'T DO A CLEAN BUILD - you can keep rebuilding your component and testing without logging out-in just fine.\
+\
+If you need to do a clean build, delete "build/MyAU.build" in your project directory.  Make sure you don't delete the MyAU.component directory (which a clean from Project Builder will do.) This causes problems with the Component Manager, and once you've done that you have to log out/in again to fix it.\
+}

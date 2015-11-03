@@ -1,0 +1,26 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                indexedParamChanged = id; 
+                param1Changed = id; 
+                param2Changed = id; 
+                presetChanged = id; 
+            }; 
+            CLASS = SampleEffectCocoaUI; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                indexedParamMatrix = NSMatrix; 
+                itsView = NSView; 
+                param1Slider = NSSlider; 
+                param1TextField = NSTextField; 
+                param2Slider = NSSlider; 
+                param2TextField = NSTextField; 
+                presetPopup = NSPopUpButton; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

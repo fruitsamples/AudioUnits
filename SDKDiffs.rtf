@@ -1,0 +1,268 @@
+{\rtf1\mac\ansicpg10000\cocoartf102
+{\fonttbl\f0\fswiss\fcharset77 Helvetica;\f1\fswiss\fcharset77 Helvetica-Bold;\f2\fnil\fcharset77 ProFont;
+}
+{\colortbl;\red255\green255\blue255;\red214\green26\blue145;}
+\margl1440\margr1440\vieww15760\viewh15920\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\fs24 \cf0 Diffs From April 2003 to Panther SDK\
+\
+
+\f1\b\fs30 AUBase:\
+
+\f0\b0\fs24 \
+Support added for a number of new Properties:\
+	AudioChannelLayouts				Get/Set methods\
+		(describes the order of channels, and their locations)\
+		Implementation of these is found in the AUElement classes\
+	AudioChannelLayoutTags is used to report the available layouts that an AU can support\
+\
+	PresentPreset\
+		CurrentPreset is deprecated in favour of PresentPreset to make CF usage consistent for AU clients\
+\
+	ElementNames\
+		Kept in AUElement - clients can name AUElements, name is saved in ClassInfo dictionary (so can be restored)\
+\
+\
+SettingMaxFrames is now a virtual method\
+	Default implementation is to *dis*-allow setting this property if the AU is intialized\
+\
+To Remove a property's value without replacing it, the semantic of passing in NULL to SetProperty is now supported\
+	- New DispatchRemovePropertyValue method (which dispatches to the virtual RemovePropertyValue)\
+		- Only applicable to certain properties by default (as most properties will always have a value)\
+			- This is *NOT* to be used to restore a "default" value for a property!!!!\
+		- Primarily used for Channel Layouts (as some units can use this or not to determine their channelization behaviour)\
+\
+GroupScope\
+	This was tightened up in a couple of places\
+	(1) Both the Set and Get Parameter calls were altered to dispatch to virtual Set and Get GroupParameter calls as GroupScope parameters are not expected to have AUElement objects associated with them (where other scopes will - see docs)\
+		Implementations can now just implement these new virtual methods to support group parameters\
+	(2) GroupScope is now skipped in AUBase save state, so by default group scope parameter values are *not* saved\
+\
+RestoreState (and SaveState)\
+	Operate only on the Global state of an AU\
+	- Thus, checks to see if the dictionary has a "part" key, if so, rejects this as this would be an invalid dictionary for the global scope\
+	- Most of the code however in these calls would be used in some fashion to save the state of an individual part, so there is a need for some minor refactoring with this method\
+		(Part scoped dictionaries are still required to contain the type, subtype, manu keys to identify which AU they belong too)\
+		- This is work that still needs to be done here.\
+\
+<       static void                                     FillInParameterName (AudioUnitParameterInfo& ioInfo, CFStringRef inName)\
+---\
+>       static void                                     FillInParameterName (AudioUnitParameterInfo& ioInfo, CFStringRef inName, bool inShouldRelease)\
+\
+The signature of this method has been changed - this will break existing compiles, and this is deliberate! To cleanup the handling of CF Objects in the AU, the ParameterInfo struct now has a new flag to describe if the name should be released after a host is finished with it. Thus, an AU needs to specify this.\
+\
+(Whilst on the subject of Parameters, support for the clump ID is also added)\
+\
+
+\f1\b\fs30 AUDispatcher:\
+
+\f0\b0\fs24 \
+A very important fix - the case statement for Component Can Do selector was missing a break!, thus the execution would continue to the next case (which would initialize the unit!)\
+\
+Added support for a DebugDispatcher - this builds an AU that will log every call made by a host, and the values of those calls. The AUDebugDispatcher is in the SDK, and in the SampleAU, you can use the DebugDispatcher build style to turn it on.\
+\
+\
+
+\f1\b\fs30 AUElement:\
+
+\f0\b0\fs24 \
+Support for channel layouts\
+Support for element names\
+\
+Addition of an option to store parameter values in a vector rather than a map. If an AU is using Parameter ID's in a contiguous range (for eg, from 0-12), then accessing these parameter ID's through a vector is far more efficient than a map. If an AU uses dis-continguous ranges for parameter ID's then a map should be used. To support existing behaviour, the map implementation is still the default\
+\
+
+\f1\b\fs30 AUEffectBase:\
+
+\f0\b0\fs24 \
+The silence detection has a serious problem and did not behave correctly in certain situations. This has been fixed - which involved the changing of the prototype for the kernel's Process method.\
+\
+If an AU is doing N->M channel processing, then their code should be corrected in a similar manner as has been applied here to the kernel based processing, to correctly deal with the silent flag.\
+\
+The Initialization code has been corrected, it now validates the number of channels on input and output to ensure they are correct given the AU's reported capabilities.\
+\
+
+\f1\b Cleanup 
+\f0\b0 was not implemented in AUEffectBase, so AudioUnitInitialize() would *not* cleanup the kernels. This has now been changed, as some effects will do allocations within the kernel objects based on the max frames property. (Thus, if these are not created anew with each Intialization, there will be bad state associated with the kernels).. This could potentially affect other properties as well - and depends of course on what AU state any kernel subclass has dependencies on.\
+\
+
+\f1\b\fs28 AUMIDIEffectBase:\
+
+\f0\b0\fs24 \
+Propogate the inPlace bool from AUEffectBase\
+\
+
+\f1\b\fs30 MusicDeviceBase:\
+
+\f0\b0\fs24 \
+Now (as AUMIDIBase did with handling note ons and note offs), now dispatches calls to MusicDeviceStartNote API with a velocity of zero, to the virtual StopNote.\
+\
+Thus, a subclass can now be assured that HandleMIDINoteOn and StartNote will both only receive a request for a new note (and of course the stop/note off calls will *always* deal with the requests to stop notes).\
+\
+Implement the kMusicDeviceProperty_InstrumentCount - where the default behaviour is to return a value of zero (which means that the AU doesn't deal with the concepts of instruments - see the related docs on Parts, Groups and Multi-timbrality)\
+\
+In addition to these changes, we also formalised the Extended arguments that can be supplied to an AU in MusicDeviceStartNote, where this struct now contain expected values:\
+	mPitch -> typically interpreted as a MIDI note on number\
+	mVelocity -> typically interpreted as MIDI Velocity\
+	struct NoteParamsControlValue\
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\tx5280\tx5760\tx6240\tx6720\tx7200\tx7680\tx8160\tx8640\tx9120\tx9600\tx10080\tx10560\tx11040\tx11520\tx12000\tx12480\tx12960\tx13440\tx13920\tx14400\tx14880\tx15360\tx15840\tx16320\tx16800\tx17280\tx17760\tx18240\tx18720\tx19200\tx19680\tx20160\tx20640\tx21120\tx21600\tx22080\tx22560\tx23040\tx23520\tx24000\tx24480\tx24960\tx25440\tx25920\tx26400\tx26880\tx27360\tx27840\tx28320\tx28800\tx29280\tx29760\tx30240\tx30720\tx31200\tx31680\tx32160\tx32640\tx33120\tx33600\tx34080\tx34560\tx35040\tx35520\tx36000\tx36480\tx36960\tx37440\tx37920\tx38400\tx38880\tx39360\tx39840\tx40320\tx40800\tx41280\tx41760\tx42240\tx42720\tx43200\tx43680\tx44160\tx44640\tx45120\tx45600\tx46080\tx46560\tx47040\tx47520\tx48000\ql\qnatural
+
+\f2\fs20 \cf2 \CocoaLigature0 \
+struct\cf0 	NoteParamsControlValue \{\
+	UInt32		mID;\
+	Float32		mValue;\
+\};\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f1\b\fs30 \cf0 \CocoaLigature1 \
+
+\f0\b0\fs24 where the mID value can be a Parameter ID (or MIDI Controller) and associated value - that an AU can use as an unique setting for this parameter for this note.\
+
+\f1\b\fs30 \
+AUBuffer:\
+
+\f0\b0\fs24 \
+Important fix here - When a buffer was being copied or returned from AudioUnitRender, the byte count of the buffer was not being honoured. This could lead to incorrect buffer copying. This fix was required for the Offline AU, where it can return a partial buffer in its *last* render action as it is finished processing its input.\
+\
+
+\f1\b\fs30 AUInputFormatConverter:\
+
+\f0\b0\fs24 \
+Add support to generate continuous and accurate time stamps - if the AU is not passing through the AudioTimeStamp that it receives from the AudioUnitRender call, then it should use this new functionality to ensure that it is generating correct time stamps.\
+\
+\
+
+\f1\b\fs30 AUCarbonViewBase:\
+
+\f0\b0\fs24 \
+Add support for meters for read only parameters. This is implemented (and can be seen) in the GenericView case. Apple's Dynamic and Multiband compressor use this facility to display the amount of compression that is being applied. The metering is done using an EventLoopTimer to establish a repeated call to draw these meters. The calls added here to create these timers are supplied arguments to describe the interval that should be used for these repetitions.\
+\
+Rounding errors were fixed for controls.\
+\
+In general the view classes have been fixed to deal correctly with the CF semantics for releasing CF objects that the view code retrieves from the AU\
+\
+
+\f1\b\fs30 AUVParameter:\
+
+\f0\b0\fs24 \
+Add support for Clumps\
+\
+\
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f1\b\fs38 \cf0 Previous Diffs\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\b0\fs24 \cf0 April 2003\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f1\b\fs36 \cf0 AUBase:\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\b0\fs24 \cf0 (1) Addition of HasRendered convenience call\
+\
+(2) Better handling of initialized states for BusCounts (previously would initialize for this property - now creates elements objects)\
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\tx5280\tx5760\tx6240\tx6720\tx7200\tx7680\tx8160\tx8640\tx9120\tx9600\tx10080\tx10560\tx11040\tx11520\tx12000\tx12480\tx12960\tx13440\tx13920\tx14400\tx14880\tx15360\tx15840\tx16320\tx16800\tx17280\tx17760\tx18240\tx18720\tx19200\tx19680\tx20160\tx20640\tx21120\tx21600\tx22080\tx22560\tx23040\tx23520\tx24000\tx24480\tx24960\tx25440\tx25920\tx26400\tx26880\tx27360\tx27840\tx28320\tx28800\tx29280\tx29760\tx30240\tx30720\tx31200\tx31680\tx32160\tx32640\tx33120\tx33600\tx34080\tx34560\tx35040\tx35520\tx36000\tx36480\tx36960\tx37440\tx37920\tx38400\tx38880\tx39360\tx39840\tx40320\tx40800\tx41280\tx41760\tx42240\tx42720\tx43200\tx43680\tx44160\tx44640\tx45120\tx45600\tx46080\tx46560\tx47040\tx47520\tx48000\ql\qnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+\cf0 (3) new call:\
+void			ComponentBase::PreDestructor()\
+((see also ComponentBase)\
+\
+(4) vstdata key for AUPreset\
+\
+(5) Rework initialization logic:\
+	Remove mTriedToInitialize\
+	Only allocate buffer memory if init succeeds\
+\
+(6) GetPropertyInfo changes:\
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\tx5280\tx5760\tx6240\tx6720\tx7200\tx7680\tx8160\tx8640\tx9120\tx9600\tx10080\tx10560\tx11040\tx11520\tx12000\tx12480\tx12960\tx13440\tx13920\tx14400\tx14880\tx15360\tx15840\tx16320\tx16800\tx17280\tx17760\tx18240\tx18720\tx19200\tx19680\tx20160\tx20640\tx21120\tx21600\tx22080\tx22560\tx23040\tx23520\tx24000\tx24480\tx24960\tx25440\tx25920\tx26400\tx26880\tx27360\tx27840\tx28320\tx28800\tx29280\tx29760\tx30240\tx30720\tx31200\tx31680\tx32160\tx32640\tx33120\tx33600\tx34080\tx34560\tx35040\tx35520\tx36000\tx36480\tx36960\tx37440\tx37920\tx38400\tx38880\tx39360\tx39840\tx40320\tx40800\tx41280\tx41760\tx42240\tx42720\tx43200\tx43680\tx44160\tx44640\tx45120\tx45600\tx46080\tx46560\tx47040\tx47520\tx48000\ql\qnatural
+
+\f2\fs20 \cf0 \CocoaLigature0 		result = GetPresets(\cf2 NULL\cf0 );\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\fs24 \cf0 \CocoaLigature1 \
+	This means that the GetPreset call can now be passed NULL - need to change implementation and guard against that.\
+\
+	The same applies to the 
+\f2\fs20 \CocoaLigature0 GetParameterValueStrings call\
+\
+	(Both of these have also been changes in SampleEffectUnit)\
+
+\f0\fs24 \CocoaLigature1 \
+	Allows GetPropertyInfo to correctly determine if the property is supported or not by the subclass (previoulsy gave false positive)\
+\
+\
+(7) SetMaxFramesPerSlice is no longer private (sub class can overide) - property no longer settable if unit Initialized\
+\
+(8) More consistent handling of SetStreamFormat (andSetSampleRate) in DispatchSetProperty\
+\
+(9) Weren't doing PropertyChanged notification for SetProperty-CurrentPreset\
+\
+(10) General Cleanup to correctly handle format negotiation for connections and input callback\
+	Weren't using mActiveInputCount (removed it)\
+\
+(11) Remove unused methods in AUBase.h (they were commented out!)\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f1\b\fs36 \cf0 AUCarbonViewBase\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\b0\fs24 \cf0 - fix handling of size control\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f1\b\fs36 \cf0 AUCarbonViewControl\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\b0\fs24 \cf0 (1) Fix in AUCarbonViewControl::Bind()\
+\
+(2) fixed graphic update problem in BindControl()\
+\
+(3) 32bit control values\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f1\b\fs36 \cf0 CarbonEventHandler\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0\b0\fs24 \cf0 - Fix CW/gcc code gen incompatibility in: 
+\f2\fs20 \CocoaLigature0 ~CarbonEventHandler\
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\tx5280\tx5760\tx6240\tx6720\tx7200\tx7680\tx8160\tx8640\tx9120\tx9600\tx10080\tx10560\tx11040\tx11520\tx12000\tx12480\tx12960\tx13440\tx13920\tx14400\tx14880\tx15360\tx15840\tx16320\tx16800\tx17280\tx17760\tx18240\tx18720\tx19200\tx19680\tx20160\tx20640\tx21120\tx21600\tx22080\tx22560\tx23040\tx23520\tx24000\tx24480\tx24960\tx25440\tx25920\tx26400\tx26880\tx27360\tx27840\tx28320\tx28800\tx29280\tx29760\tx30240\tx30720\tx31200\tx31680\tx32160\tx32640\tx33120\tx33600\tx34080\tx34560\tx35040\tx35520\tx36000\tx36480\tx36960\tx37440\tx37920\tx38400\tx38880\tx39360\tx39840\tx40320\tx40800\tx41280\tx41760\tx42240\tx42720\tx43200\tx43680\tx44160\tx44640\tx45120\tx45600\tx46080\tx46560\tx47040\tx47520\tx48000\ql\qnatural
+
+\f0\fs24 \cf0 \CocoaLigature1 \
+\
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\tx5280\tx5760\tx6240\tx6720\tx7200\tx7680\tx8160\tx8640\tx9120\tx9600\tx10080\tx10560\tx11040\tx11520\tx12000\tx12480\tx12960\tx13440\tx13920\tx14400\tx14880\tx15360\tx15840\tx16320\tx16800\tx17280\tx17760\tx18240\tx18720\tx19200\tx19680\tx20160\tx20640\tx21120\tx21600\tx22080\tx22560\tx23040\tx23520\tx24000\tx24480\tx24960\tx25440\tx25920\tx26400\tx26880\tx27360\tx27840\tx28320\tx28800\tx29280\tx29760\tx30240\tx30720\tx31200\tx31680\tx32160\tx32640\tx33120\tx33600\tx34080\tx34560\tx35040\tx35520\tx36000\tx36480\tx36960\tx37440\tx37920\tx38400\tx38880\tx39360\tx39840\tx40320\tx40800\tx41280\tx41760\tx42240\tx42720\tx43200\tx43680\tx44160\tx44640\tx45120\tx45600\tx46080\tx46560\tx47040\tx47520\tx48000\ql\qnatural
+
+\f1\b\fs36 \cf0 AUEffectBase
+\f0\b0\fs24 \
+- substantial changes:\
+\
+(1) fix AUEffectBase::MaintainKernels\
+\
+(2) can process in place (needs a new propertyID that SHOULD BE SUPPORTED for in place processing so host apps can determine appropriate buffer management policies) If the property is NOT implemented the host has to make a best guess about what it should do in that case. The actual property ID will be available in a later release of the headers - in the meantime the propertyID is defined in this file.\
+	- simple boolean to set to process in place or not\
+\
+(3) Initialization fixes \
+	- can't set format if already initialized - removes possible errors in Render call (needs fix to SetFormat/Connection changes in AUBase) \
+	- therefore stronger validation and guarantees about format conformance guidelines and consistency\
+\
+(4) Add support for no processing if silent flag is passed in as true to AURender\
+\
+\
+
+\f1\b\fs36 SampleEffectUnit
+\f0\b0\fs24 \
+\
+(1) "complete" support for preset handling\
+\
+(2) changes required by changes in AUBase (see above) for GetPropertyInfo\
+}
