@@ -145,7 +145,6 @@ struct SynthNote
 
 	float					PitchBend() const;
 	double					TuningA() const;
-	double					MiddleC() const;
 	
 	virtual double			Frequency(); // returns the frequency of note + pitch bend.
 	double					SampleRate();

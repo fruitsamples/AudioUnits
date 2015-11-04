@@ -106,11 +106,6 @@ double SynthNote::TuningA() const
 	return 440.0;
 }
 
-double SynthNote::MiddleC() const
-{
-	return 261.625565;
-}
-
 double SynthNote::Frequency()
 {
 	return TuningA() * pow(2., (mPitch - 69. + PitchBend()) / 12.);
