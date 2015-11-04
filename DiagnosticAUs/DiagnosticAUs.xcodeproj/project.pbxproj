@@ -585,39 +585,6 @@
 		};
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildStyle section */
-		A9C0F2930491470100167A97 = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				OTHER_CFLAGS = "\U0001-DAU_DEBUG_DISPATCHER=1";
-			};
-			name = AUDebugDispatcher;
-		};
-		F5809CA7017675F201AE2950 = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OPTIMIZATION_CFLAGS = "-O0";
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		F5809CA8017675F201AE2950 = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
-
 /* Begin PBXFileReference section */
 		3E407DEE07241E3C00F3FDEB = {
 			isa = PBXFileReference;
@@ -1618,27 +1585,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				EXPORTED_SYMBOLS_FILE = AUPulseDetector.exp;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "Info-AUPulseDetector.plist";
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-bundle";
-				OTHER_REZFLAGS = "-I / -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
-				PRODUCT_NAME = AUPulseDetector;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = component;
-			};
 			dependencies = (
 			);
 			name = AUPulseDetector;
@@ -1659,27 +1605,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				EXPORTED_SYMBOLS_FILE = AUValidSamples.exp;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "Info-AUValidSamples.plist";
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-bundle";
-				OTHER_REZFLAGS = "-I / -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
-				PRODUCT_NAME = AUValidSamples;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = component;
-			};
 			dependencies = (
 			);
 			name = AUValidSamples;
@@ -1700,27 +1625,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				EXPORTED_SYMBOLS_FILE = AUPulseDetector.exp;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "Info-AUPulseDetector.plist";
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-bundle";
-				OTHER_REZFLAGS = "-I / -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
-				PRODUCT_NAME = AUPulseDetector;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = component;
-			};
 			dependencies = (
 			);
 			name = AUDebugDispatcher;
@@ -1735,13 +1639,6 @@
 		089C1669FE841209C02AAC07 = {
 			isa = PBXProject;
 			buildConfigurationList = A9BAEE80087228ED000DEEA1;
-			buildSettings = {
-			};
-			buildStyles = (
-				F5809CA7017675F201AE2950,
-				F5809CA8017675F201AE2950,
-				A9C0F2930491470100167A97,
-			);
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07;
 			projectDirPath = "";
@@ -2007,6 +1904,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I / -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
@@ -2014,6 +1912,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I / -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};

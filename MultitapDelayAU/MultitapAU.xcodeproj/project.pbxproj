@@ -13,18 +13,6 @@
 			buildPhases = (
 				3E3BB887089A907D0036BC12,
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Multitap AU + View";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				3E8BF141079CA60300021B09,
 				3E8BF13F079CA60300021B09,
@@ -244,30 +232,6 @@
 			fileRef = F4E5DC2A0898301D00589A5A;
 		};
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildStyle section */
-		F5AA99B80281A61201C34293 = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		F5AA99B90281A61201C34293 = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
 		3E8BF13E079CA60300021B09 = {
@@ -866,25 +830,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				EXPORTED_SYMBOLS_FILE = MultitapAU.exp;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				INFOPLIST_FILE = "Info-MultitapAU.plist";
-				INSTALL_PATH = "/Library/Audio/Plug-Ins/Components/";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "-I / -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
-				PRODUCT_NAME = MultitapAU;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = component;
-			};
 			dependencies = (
 			);
 			name = MultitapAU;
@@ -903,27 +848,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				EXECUTABLE_SUFFIX = "";
-				EXPORTED_SYMBOLS_FILE = MultitapAUView.exp;
-				FRAMEWORK_SEARCH_PATHS = "";
-				INSTALL_PATH = "/Library/Audio/Plug-Ins/Components/MultitapAU.component/Contents/MacOS/";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOL_FLAGS = "";
-				OTHER_REZFLAGS = "-I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase -I /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers";
-				PRODUCT_NAME = MultitapAUView;
-				REZ_EXECUTABLE = YES;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 			);
 			name = MultitapAUView;
@@ -938,12 +862,6 @@
 		F5AA99BA0281A61201C34293 = {
 			isa = PBXProject;
 			buildConfigurationList = A9E884B90874ABE600B2DFE8;
-			buildSettings = {
-			};
-			buildStyles = (
-				F5AA99B80281A61201C34293,
-				F5AA99B90281A61201C34293,
-			);
 			hasScannedForEncodings = 1;
 			mainGroup = F5AA99B60281A61201C34293;
 			productRefGroup = F5AA99C40281A62C01C34293;
@@ -1120,6 +1038,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = "/Library/Audio/Plug-Ins/Components/MultitapAU.component/Contents/MacOS/";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOL_FLAGS = "";
@@ -1148,6 +1067,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				INSTALL_PATH = "/Library/Audio/Plug-Ins/Components/MultitapAU.component/Contents/MacOS/";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOL_FLAGS = "";
@@ -1174,6 +1094,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				INSTALL_PATH = "/Library/Audio/Plug-Ins/Components/MultitapAU.component/Contents/MacOS/";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOL_FLAGS = "";
@@ -1249,18 +1170,21 @@
 		A9E884BA0874ABE600B2DFE8 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
 		A9E884BB0874ABE600B2DFE8 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};
 		A9E884BC0874ABE600B2DFE8 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Default;
 		};
