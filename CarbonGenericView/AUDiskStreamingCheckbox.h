@@ -35,24 +35,44 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*
+ *  AUDiskStreamingCheckbox.h
+ *  CAServices
+ *
+ *  Created by Michael Hopkins on Tue Aug 26 2003.
+ *  Copyright (c) 2003 Apple Computer, Inc. All rights reserved.
+ *
+ */
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
+#include <Carbon/Carbon.h>
+
+#include "AUCarbonViewControl.h"
+#include "AUCarbonViewBase.h"
+
+class AUDiskStreamingCheckbox : public AUPropertyControl {
+public:
+					/*! @ctor AUDiskStreamingCheckbox */
+					AUDiskStreamingCheckbox (AUCarbonViewBase	* inBase,
+											Point			 	inLocation,
+											ControlFontStyleRec	& inFontStyle);
+	
+					/*! @dtor ~AUDiskStreamingCheckbox */
+					virtual ~AUDiskStreamingCheckbox() {}
+
+	/*! @method HandlePropertyChange */
+	virtual bool	HandlePropertyChange (const AudioUnitProperty &inProp);
+
+	/*! @method AddInterest */
+	virtual void	AddInterest (AUEventListenerRef		inListener,
+								void *					inObject);
+	
+	/*! @method RemoveInterest */
+	virtual void	RemoveInterest  (AUEventListenerRef	inListener,
+								void *					inObject);
+
+protected:
+	virtual void	HandleControlChange ();
+
+private:
+	void			HandlePropertyChange(UInt32 quality);
 };
-
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
-
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
-
-#endif

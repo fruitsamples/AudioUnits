@@ -1,4 +1,4 @@
-/*	Copyright: 	© Copyright 2004 Apple Computer, Inc. All rights reserved.
+/*	Copyright: 	© Copyright 2005 Apple Computer, Inc. All rights reserved.
 
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
 			("Apple") in consideration of your agreement to the following terms, and your
@@ -58,6 +58,7 @@ enum {
 	kPulseRestTime		= 1,
 	kPulseThreshold 	= 2,
 	kPulseLength 		= 3,
+	kWritePulseStats	= 4
 };
 
 const static float kPulseThresholdDefault = 0.5;
@@ -80,6 +81,7 @@ class AUPulseDetector : public AUEffectBase
 {
 public:
 								AUPulseDetector(AudioUnit component);
+								virtual ~AUPulseDetector ();
 	
 	virtual AUKernelBase *		NewKernel() { return new AUPulseDetectorKernel(this); }
 	
@@ -148,9 +150,6 @@ public:
 		return AUEffectBase::Render (ioActionFlags, inTimeStamp, nFrames);
 	}
 
-#if AU_DEBUG_DISPATCHER
-								virtual ~AUPulseDetector () { delete mDebugDispatcher; }
-#endif
 
 protected:
 	class AUPulseDetectorKernel : public AUKernelBase		// most real work happens here
@@ -164,7 +163,10 @@ protected:
 			mParentObject->mChildObject = this;
 		}
 
-		virtual ~AUPulseDetectorKernel() { mParentObject->mChildObject = NULL; }
+		virtual ~AUPulseDetectorKernel() 
+		{ 
+			mParentObject->mChildObject = NULL; 
+		}
 		
 // Required overides for the process method for this effect
 		// processes one channel of interleaved samples
@@ -184,6 +186,7 @@ protected:
 			mMinTime = 0xFFFFFFFF; 
 			mLastMeasurement = 0;
 			mLastFrames = 0;
+			mParentObject->ClearPulseTS();
 		}
 	
 		Float64 			SampleTime () 
@@ -216,6 +219,38 @@ protected:
 	
 	AudioTimeStamp mRenderTime;
 	AUPulseDetectorKernel* mChildObject;
+
+	enum {
+		kPulseTSSize = 256
+	};
+	
+	struct PulseTS {
+		Float64 start;
+		Float64 length;
+	};
+	
+	PulseTS *mPulseTimeStats;
+	UInt32  mCurrentPTSIndex;
+
+public:
+	void			ClearPulseTS ()
+	{
+		memset (mPulseTimeStats, 0, (sizeof(PulseTS) * kPulseTSSize));
+		mCurrentPTSIndex = 0;
+	}
+	
+	void			WritePulseTS ();
+
+	void			DetectedPulse (Float64 startTime, Float64 duration)
+	{
+		mPulseTimeStats[mCurrentPTSIndex].start = startTime;
+		mPulseTimeStats[mCurrentPTSIndex].length = duration;
+		
+		mCurrentPTSIndex = (++mCurrentPTSIndex % kPulseTSSize);
+		
+		PropertyChanged (kAUPulseMetricsPropertyID, kAudioUnitScope_Global, 0);
+	}
+	
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -241,14 +276,25 @@ AUPulseDetector::AUPulseDetector(AudioUnit component)
 	GetOutput(0)->SetStreamFormat(monoDesc);
 	GetInput(0)->SetStreamFormat(monoDesc);
 
-	Globals()->UseIndexedParameters (4);
+	Globals()->UseIndexedParameters (5);
 	Globals()->SetParameter (kPulseThreshold, kPulseThresholdDefault);
 	Globals()->SetParameter (kPulseLength, kPulseLengthDefault);
 	Globals()->SetParameter (kPulseRestTime, kPulseRestTimeDefault);
 	Globals()->SetParameter (kDoPulseDetection, kDoPulseDetectionDefault);
+	Globals()->SetParameter (kWritePulseStats, 0);
+
+	mPulseTimeStats = new PulseTS[kPulseTSSize];
 	
 #if AU_DEBUG_DISPATCHER
 	mDebugDispatcher = new AUDebugDispatcher (this);
+#endif
+}
+
+AUPulseDetector::~AUPulseDetector () 
+{ 			
+	delete [] mPulseTimeStats;
+#if AU_DEBUG_DISPATCHER
+	delete mDebugDispatcher; 
 #endif
 }
 
@@ -287,7 +333,7 @@ ComponentResult		AUPulseDetector::GetParameterInfo(	AudioUnitScope			inScope,
 
 			case kPulseRestTime:
                 AUBase::FillInParameterName (outParameterInfo, CFSTR("Time Between Pulses"), false);
-				AUBase::HasClump (outParameterInfo, 1);				
+				AUBase::HasClump (outParameterInfo, 2);				
                 outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
                 outParameterInfo.minValue = kPulseRestTimeMin;
                 outParameterInfo.maxValue = kPulseRestTimeMax;
@@ -301,6 +347,16 @@ ComponentResult		AUPulseDetector::GetParameterInfo(	AudioUnitScope			inScope,
                 outParameterInfo.minValue = kDoPulseDetectionMin;
                 outParameterInfo.maxValue = kDoPulseDetectionMax;
                 outParameterInfo.defaultValue = kDoPulseDetectionDefault;
+				return noErr;
+				
+			case kWritePulseStats:
+				outParameterInfo.flags = kAudioUnitParameterFlag_IsWritable;
+                AUBase::FillInParameterName (outParameterInfo, CFSTR("Write Pulse Time Stamps"), false);
+				AUBase::HasClump (outParameterInfo, 3);
+                outParameterInfo.unit = kAudioUnitParameterUnit_Boolean;
+                outParameterInfo.minValue = 0;
+                outParameterInfo.maxValue = 1;
+                outParameterInfo.defaultValue = 0;
 				return noErr;
 		}
 	}
@@ -351,6 +407,11 @@ ComponentResult		AUPulseDetector::GetProperty(	AudioUnitPropertyID inID,
 					metrics.numMeasurements = numMeasures;
 					metrics.lastPulseTime = lastMeasure;
 					metrics.numFrames = child.mLastFrames;
+				} else {
+					metrics.min = metrics.max = 0;
+					metrics.mean = metrics.stdDev = 0;
+					metrics.numMeasurements = 0;
+					metrics.lastPulseTime = metrics.numFrames = 0;
 				}
 				
 				*((AUPulseMetrics*)outData) = metrics;
@@ -370,14 +431,19 @@ ComponentResult 	AUPulseDetector::SetParameter(		AudioUnitParameterID			inID,
 														Float32							inValue,
 														UInt32							inBufferOffsetInFrames)
 {
-	bool wasOff;
+	if (inID == kWritePulseStats && inValue > 0.5) {
+		WritePulseTS();
+		return noErr;
+	}
+
+	bool wasOff = false;
 	if (inID == kPulseRestTime && mChildObject) {
 		mChildObject->mDoneClean = 0;
 		mChildObject->mWhichMode = AUPulseDetector::AUPulseDetectorKernel::kCleanMode;
 	}
 	if (inID == kDoPulseDetection)
 		wasOff = GetParameter (kDoPulseDetection) == 0.0;
-	
+		
 	ComponentResult result = AUBase::SetParameter (inID, inScope, inElement, inValue, inBufferOffsetInFrames);
 		
 			// establish a new pulse
@@ -387,6 +453,37 @@ ComponentResult 	AUPulseDetector::SetParameter(		AudioUnitParameterID			inID,
 	}
 	
 	return result;
+}
+
+void		AUPulseDetector::WritePulseTS ()
+{
+	static int currentWriteFile = 1;
+	int index = mCurrentPTSIndex;
+
+	if (index == 0) {
+		if (mPulseTimeStats[0].length == 0) {
+			printf ("No pulse stats to write\n");
+			return;
+		}
+		index = kPulseTSSize;
+	}
+	
+	static char str[1024];
+	sprintf (str, "/tmp/au-pulse-ts-%d.txt", currentWriteFile++);
+	
+	FILE * pFile = fopen (str,"wt");
+	if (pFile != NULL) {
+		printf ("Writing %d stats to %s\n", index, str);
+		fprintf (pFile, "Start Time (Samples)\tDuration\n");
+		for (int i = 0; i < index; ++i) {
+			fprintf (pFile, "%.0f\t%.0f\n", mPulseTimeStats[i].start, mPulseTimeStats[i].length);
+		}
+		
+		fclose (pFile);
+	} else 
+		printf ("Can't create file:%s\n", str);
+	
+	ClearPulseTS();
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -431,7 +528,7 @@ void AUPulseDetector::AUPulseDetectorKernel::Process(const Float32 	*inSourceP,
 				
 				if(fabs(inputSample) >= pulseThreshold) {
 					mLastMeasurement = UInt32(now + i - mPulseStartTime);
-
+					
 					mTotalMeasurements += mLastMeasurement;
 					mTotalMeasurementsSquared += pow (mLastMeasurement, 2);
 					mNumMeasurements++;
@@ -446,10 +543,11 @@ void AUPulseDetector::AUPulseDetectorKernel::Process(const Float32 	*inSourceP,
 					
 					mLastFrames = inFramesToProcess;
 					mWasSuccessful = true;
-					mParentObject->PropertyChanged (kAUPulseMetricsPropertyID, kAudioUnitScope_Global, 0);
+					mParentObject->DetectedPulse (mPulseStartTime, mLastMeasurement);
 					break;
 				}				
 			}
+			memset (inDestP, 0, (inFramesToProcess * sizeof(Float32)));
 		}
 		break;
 

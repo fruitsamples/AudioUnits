@@ -35,24 +35,58 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*=============================================================================
+ *  SampleEffectCocoaView.m
+ *  SampleEffectUnit
+ *-----------------------------------------------------------------------------
+ *
+ *=============================================================================*/
+ 
+/*
+    SampleEffectCocoaView.m
+    
+    Factory class that implements to AUCocoaUIBase protocol.
+    Pay particular attention to the behavior of the - (NSView *)uiViewForAudioUnit:withSize: function.
+*/
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
-};
+#import "SampleEffectCocoaViewFactory.h"
+#import "SampleEffectCocoaView.h"
 
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
+@implementation SampleEffectCocoaViewFactory
 
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
+// version 0
+- (unsigned) interfaceVersion {
+	return 0;
+}
 
-#endif
+// string description of the Cocoa UI
+- (NSString *) description {
+	// don't return a hard coded string (e.g.: @"Sample Effect Cocoa UI") because that string may be destroyed (NOT released)
+	// when this factory class is released.
+	return [NSString stringWithString:@"Sample Effect Cocoa View"];
+}
+
+// N.B.: this class is simply a view-factory,
+// returning a new autoreleased view each time it's called.
+- (NSView *)uiViewForAudioUnit:(AudioUnit)inAU withSize:(NSSize)inPreferredSize {
+	if (! [NSBundle loadNibNamed: @"SampleEffectUI" owner:self]) {
+		return nil;
+	}
+    
+	// if a valid view is not returned for whatever reason, just return nil from this function
+	// if this is occurring -- check to see your nib's outlet is correcly connected
+	if (uiViewInstance == nil)
+		return nil;
+	
+    // This particular nib has a fixed size, so we don't do anything with the inPreferredSize argument.
+    // It's up to the host application to handle.
+    [uiViewInstance setAU:inAU];
+    
+    NSView *returnView = uiViewInstance;
+    uiViewInstance = nil;		// zero out pointer.  This is a view factory.  Once a view's been created
+                                // and handed off, the factory keeps no record of it.
+    
+    return [returnView autorelease];
+}
+
+@end

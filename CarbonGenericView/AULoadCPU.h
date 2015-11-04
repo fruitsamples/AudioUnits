@@ -35,24 +35,60 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*
+ *  AULoadCPU.h
+ *  CAServices
+ *
+ *  Created by Michael Hopkins on Thu Oct 24 2002.
+ *  Copyright (c) 2002 Apple Computer. All rights reserved.
+ *
+ */
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
+#include <CoreServices/CoreServices.h>
+
+#include "AUCarbonViewControl.h"
+#include "AUCarbonViewBase.h"
+
+class AULoadCPU : public AUPropertyControl {
+public:
+						/*! @ctor AULoadCPU */
+						AULoadCPU (AUCarbonViewBase *	inBase,
+								   Point			 	inLocation,
+								   ControlFontStyleRec &inFontStyle);
+						
+						/*! @dtor ~AULoadCPU */
+						virtual ~AULoadCPU() {}
+
+	virtual bool		HandleEvent(EventRef event);
+			bool 		HandleMouseEvent(EventRef inEvent);
+			bool 		HandleCommandEvent(EventRef inEvent);
+			bool 		HandleControlEvent(EventRef inEvent);
+
+			void 		SetControlStringAndValue(int value);
+			void		HandlePropertyChange(Float32 load);
+	
+
+	virtual bool		HandlePropertyChange (const AudioUnitProperty &inProp);
+	
+	/*! @method AddInterest */
+	virtual void	AddInterest (AUEventListenerRef		inListener,
+								void *					inObject);
+	
+	/*! @method RemoveInterest */
+	virtual void	RemoveInterest  (AUEventListenerRef	inListener,
+								void *					inObject);
+
+	static ControlKeyFilterResult NumericKeyFilterCallback(ControlRef theControl, SInt16 *keyCode, SInt16 *charCode, 
+															EventModifiers *modifiers);
+protected:
+	virtual void		HandleControlChange ();
+	/*! @method RegisterEvents */
+			void		RegisterEvents ();
+			
+private:
+	ControlRef mNoCPURestrictionsBtn;
+	ControlRef mLittleArrowsBtn;
+	
+	SInt32	   mLoadValue;
+	Boolean	   mUpdating;
 };
-
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
-
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
-
-#endif

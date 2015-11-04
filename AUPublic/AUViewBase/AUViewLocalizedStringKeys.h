@@ -1,4 +1,4 @@
-/*	Copyright: 	© Copyright 2004 Apple Computer, Inc. All rights reserved.
+/*	Copyright: 	© Copyright 2005 Apple Computer, Inc. All rights reserved.
 
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
 			("Apple") in consideration of your agreement to the following terms, and your
@@ -49,13 +49,11 @@ static const CFStringRef	kLocalizedStringTable_AUView =		CFSTR("CustomUI");
 
 // UNLOCALIZED STRINGS:
     static const CFStringRef	kAUViewUnlocalizedString_TitleSeparator = 			CFSTR(": ");
-    static const CFStringRef	kAUViewUnlocalizedString_Separator =				CFSTR(":");
     
 // Generic View:
     static const CFStringRef	kAUViewLocalizedStringKey_AudioUnit =				CFSTR("Audio Unit");
     static const CFStringRef	kAUViewLocalizedStringKey_Manufacturer =			CFSTR("Manufacturer");
     
-    static const CFStringRef	kAUViewLocalizedStringKey_BypassEffect =			CFSTR("Bypass Effect");
     static const CFStringRef	kAUViewLocalizedStringKey_FactoryPreset =			CFSTR("Factory Preset");
     
     static const CFStringRef	kAUViewLocalizedStringKey_Properties =				CFSTR("Properties");

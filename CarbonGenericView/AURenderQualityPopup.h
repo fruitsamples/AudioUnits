@@ -35,24 +35,45 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*
+ *  AURenderQualityPopup.h
+ *  CAServices
+ *
+ *  Created by Michael Hopkins on Fri Oct 25 2002.
+ *  Copyright (c) 2002 Apple Computer. All rights reserved.
+ *
+ */
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
+#include <Carbon/Carbon.h>
+
+#include "AUCarbonViewControl.h"
+#include "AUCarbonViewBase.h"
+
+class AURenderQualityPopup : public AUPropertyControl {
+public:
+				/*! @ctor AURenderQualityPopup */
+				AURenderQualityPopup (AUCarbonViewBase *	inBase,
+										Point			 	inLocation,
+										ControlFontStyleRec &inFontStyle);
+	
+				/*! @dtor ~AURenderQualityPopup */
+				virtual ~AURenderQualityPopup() {}
+
+	virtual bool	HandleEvent(EventRef event);
+
+	virtual bool	HandlePropertyChange (const AudioUnitProperty &inProp);
+	
+	virtual void	AddInterest (AUEventListenerRef		inListener,
+								void *					inObject);
+	
+	virtual void	RemoveInterest  (AUEventListenerRef	inListener,
+								void *					inObject);
+
+protected:
+	virtual void	HandleControlChange ();
+
+	/*! @method RegisterEvents */
+	void	RegisterEvents ();
+
+	void	HandlePropertyChange(UInt32 quality);
 };
-
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
-
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
-
-#endif

@@ -35,24 +35,90 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*
+ *  SynthNote.cpp
+ *  TestSynth
+ *
+ *  Created by James McCartney on Mon Mar 29 2004.
+ *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
+ *
+=============================================================================*/
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
-};
+#include "SynthNote.h"
+#include "SynthElement.h"
+#include "AUInstrumentBase.h"
 
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
-
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
-
+void SynthNote::AttackNote(
+			SynthPartElement *				inPart,
+			SynthGroupElement *				inGroup,
+			NoteInstanceID					inNoteID, 
+			SInt64							inAbsoluteSampleFrame, 
+			UInt32							inOffsetSampleFrame, 
+			const MusicDeviceNoteParams		&inParams)
+{
+#if DEBUG_PRINT
+	printf("SynthNote::AttackNote %d %d %d\n", inPart, inGroup.GroupID(), inNoteID);
 #endif
+	mPart = inPart;
+	mGroup = inGroup;
+	mNoteID = inNoteID;
+
+	mAbsoluteStartFrame = inAbsoluteSampleFrame;
+	mRelativeStartFrame = inOffsetSampleFrame;
+	mRelativeReleaseFrame = -1;
+	mRelativeKillFrame = -1;
+
+	mPitch = inParams.mPitch;
+	mVelocity = inParams.mVelocity;
+	
+	
+	Attack(inParams);
+}
+
+
+void SynthNote::Reset()
+{
+	mPart = 0;
+	mGroup = 0;
+	mAbsoluteStartFrame = 0;
+	mRelativeStartFrame = 0;
+	mRelativeReleaseFrame = 0;
+	mRelativeKillFrame = 0;
+}
+
+void SynthNote::Kill(UInt32 inFrame)
+{
+	mRelativeKillFrame = inFrame;
+}
+
+void SynthNote::Release(UInt32 inFrame)
+{
+	mRelativeReleaseFrame = inFrame;
+}
+
+void SynthNote::FastRelease(UInt32 inFrame)
+{
+	mRelativeReleaseFrame = inFrame;
+}
+
+double SynthNote::TuningA() const
+{
+	return 440.0;
+}
+
+double SynthNote::MiddleC() const
+{
+	return 261.625565;
+}
+
+double SynthNote::Frequency()
+{
+	return TuningA() * pow(2., (mPitch - 69. + PitchBend()) / 12.);
+}
+
+double SynthNote::SampleRate()
+{
+	return GetAudioUnit()->GetOutput(0)->GetStreamFormat().mSampleRate;
+}
+
+

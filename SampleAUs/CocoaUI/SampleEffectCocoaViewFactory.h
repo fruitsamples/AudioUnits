@@ -35,24 +35,28 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*=============================================================================
+ *  SampleEffectCocoaViewFactory.h
+ *  SampleEffectUnit
+ *-----------------------------------------------------------------------------
+ *
+ *=============================================================================*/
+ 
+/*
+    SampleEffectCocoaViewFactory.h
+    
+    Factory class that implements to AUCocoaUIBase protocol.
+    Pay particular attention to the behavior of the - (NSView *)uiViewForAudioUnit:withSize: function.
+*/
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
-};
+#import <Cocoa/Cocoa.h>
+#import <AudioUnit/AUCocoaUIView.h>
 
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
+@class SampleEffectCocoaView;
 
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
+@interface SampleEffectCocoaViewFactory : NSObject <AUCocoaUIBase>
+{
+    SampleEffectCocoaView *	uiViewInstance;
+}
 
-#endif
+@end

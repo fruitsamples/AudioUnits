@@ -1,4 +1,4 @@
-/*	Copyright: 	© Copyright 2004 Apple Computer, Inc. All rights reserved.
+/*	Copyright: 	© Copyright 2005 Apple Computer, Inc. All rights reserved.
 
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
 			("Apple") in consideration of your agreement to the following terms, and your
@@ -336,10 +336,12 @@ ComponentResult		AUValidSamples::GetProperty(	AudioUnitPropertyID inID,
 				VSInfoList *list = (VSInfoList*)(outData);				
 				VSInfo *item;
 				int i = 0;
+				int temp;
 				while ((item = mSampleInfo->ReadItem()) != NULL) {
 					memcpy (&list->data[i], item, sizeof(VSInfo));
 					mSampleInfo->AdvanceReadPtr();
-					i = ++i % kMaxNumInfo;
+					temp = ++i % kMaxNumInfo;
+					i = temp;
 				}
 				list->numEntries = i;
 			}
@@ -378,8 +380,11 @@ void AUValidSamples::AUValidSamplesKernel::Process(const Float32 	*inSourceP,
 		float  input = *sourceP;
 		sourceP += inNumChannels;
 		
-//		if (((++counter % 44100) == 0))
-//			input = 1e-16;//0./0.;
+#if 0
+		static int counter = 0;
+		if (((++counter % 44100) == 0))
+			input = 1e-16;//0./0.;
+#endif
 				
 		float absx = fabs(input);
 		

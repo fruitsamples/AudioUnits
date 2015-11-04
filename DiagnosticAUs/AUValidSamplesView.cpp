@@ -1,4 +1,4 @@
-/*	Copyright: 	© Copyright 2004 Apple Computer, Inc. All rights reserved.
+/*	Copyright: 	© Copyright 2005 Apple Computer, Inc. All rights reserved.
 
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
 			("Apple") in consideration of your agreement to the following terms, and your
@@ -176,7 +176,8 @@ void 		AUValidSamplesView::UpdateDisplay()
 	int lastItem = mLastDisplayIndex == 0 ? (kNumDisplayRows - 1) : (mLastDisplayIndex - 1);
 	MoveControl (mMarker, 96, 84 + lastItem * kInfoRowHeight);
 	
-	DrawOneControl (mCarbonPane);		
+	if (!IsCompositWindow())
+		DrawOneControl (mCarbonPane);		
 }
 
 OSStatus	AUValidSamplesView::CreateSpecificUI (Float32 inXOffset, Float32 inYOffset, Rect *outSize)

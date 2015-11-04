@@ -35,24 +35,59 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*
+ *  SynthNoteList.cpp
+ *  TestSynth
+ *
+ *  Created by James McCartney on Mon Mar 29 2004.
+ *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
+ *
+=============================================================================*/
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
-};
+#include "SynthNoteList.h"
+#include <stdexcept>
 
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
-
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
-
-#endif
+void SynthNoteList::SanityCheck() const
+{
+	if (mState >= kNumberOfNoteStates) {
+		throw std::runtime_error("mState is bad");
+	}
+	
+	if (mHead == NULL) {
+		if (mTail != NULL) 
+			throw std::runtime_error("mHead is NULL but not mTail");
+		return;
+	}
+	if (mTail == NULL) {
+		throw std::runtime_error("mTail is NULL but not mHead");
+	}
+	
+	if (mHead->mPrev) {
+		throw std::runtime_error("mHead has a mPrev");
+	}
+	if (mTail->mNext) {
+		throw std::runtime_error("mTail has a mNext");
+	}
+	
+	SynthNote *note = mHead;
+	while (note)
+	{
+		if (note->mState != mState)
+			throw std::runtime_error("note in wrong state");
+		if (note->mNext) {
+			if (note->mNext->mPrev != note)
+				throw std::runtime_error("bad link 1");
+		} else {
+			if (mTail != note)
+				throw std::runtime_error("note->mNext is nil, but mTail != note");
+		}
+		if (note->mPrev) {
+			if (note->mPrev->mNext != note)
+				throw std::runtime_error("bad link 2");
+		} else {
+			if (mHead != note)
+				throw std::runtime_error("note->mPrev is nil, but mHead != note");
+		}
+		note = note->mNext;
+	}
+}

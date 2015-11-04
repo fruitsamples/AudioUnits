@@ -35,24 +35,45 @@
 			(INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN
 			ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef __AUValidSampleShared_h__
-#define __AUValidSampleShared_h__
+/*=============================================================================
+ *  SampleEffectCocoaView.h
+ *  SampleEffectUnit
+ *-----------------------------------------------------------------------------
+ *
+ *=============================================================================*/
+ 
+/*
+    SampleEffectCocoaView.h
+    
+    View class manufactured by SampleEffectCocoaViewFactory factory class.
+    This view is instantiated via nib.
+*/
 
-	// should get this property with a maximum size (max frames * num channels * sizeof(VSInfo))
-	// the property value returned will be an array of VSInfo of num elements determined by size
-enum {
-	kAUValidSamples_InvalidSamplesPropertyID = 65537
-};
+#import <Cocoa/Cocoa.h>
+#import <AudioUnit/AudioUnit.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-struct VSInfo {
-	UInt32 	sample;
-	UInt32 	channel;
-	Float32 value;
-};
+@interface SampleEffectCocoaView : NSView
+{
+    // IB Members
+    IBOutlet NSSlider *				uiParam1Slider;
+    IBOutlet NSTextField *			uiParam1TextField;
+    IBOutlet NSSlider *				uiParam2Slider;
+    IBOutlet NSTextField *			uiParam2TextField;
+    IBOutlet NSMatrix *				uiParam3Matrix;
+	
+@protected
+    // Other Members
+             AudioUnit 				mAU;
+             AUParameterListenerRef	mParameterListener;
+}
 
-struct VSInfoList {
-	UInt32 	numEntries;	// the number of valid entries in the data segment
-	VSInfo	data[1]; // variable length
-};
+#pragma mark ____ PUBLIC FUNCTIONS ____
+- (void)setAU:(AudioUnit)inAU;
 
-#endif
+#pragma mark ____ INTERFACE ACTIONS ____
+- (IBAction)iaParam1Changed:(id)sender;
+- (IBAction)iaParam2Changed:(id)sender;
+- (IBAction)iaParam3Changed:(id)sender;
+
+@end
