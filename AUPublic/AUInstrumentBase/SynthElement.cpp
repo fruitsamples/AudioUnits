@@ -38,15 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*
- *  SynthElement.cpp
- *  TestSynth
- *
- *  Created by James McCartney on Mon Mar 29 2004.
- *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
- *
-=============================================================================*/
-
 #include "SynthElement.h"
 #include "AUInstrumentBase.h"
 

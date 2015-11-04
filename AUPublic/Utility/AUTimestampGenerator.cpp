@@ -38,11 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*=============================================================================
-	AUTimestampGenerator.cpp
-	
-=============================================================================*/
-
 #include "AUTimestampGenerator.h"
 #include "CAMath.h"
 
@@ -54,7 +49,7 @@ static double DebugHostTime(const AudioTimeStamp &ts)
 		return -1.;
 	if (baseHostTime == 0)
 		baseHostTime = ts.mHostTime;
-	return double(SInt64(ts.mHostTime) - SInt64(baseHostTime)) / CAHostTimeBase::GetFrequency();
+	return double(SInt64(ts.mHostTime) - SInt64(baseHostTime)) * CAHostTimeBase::GetInverseFrequency();
 }
 #endif
 
@@ -63,6 +58,8 @@ void	AUTimestampGenerator::AddOutputTime(const AudioTimeStamp &inTimeStamp, Floa
 	mRateScalarAdj = rateScalarAdj;
 	mLastOutputTime = mCurrentOutputTime;
 	mCurrentOutputTime = inTimeStamp;
+	if (mBypassed)
+		return;
 	if (mHostTimeDiscontinuityCorrection && !(mCurrentOutputTime.mFlags & kAudioTimeStampHostTimeValid) && (mLastOutputTime.mFlags & kAudioTimeStampHostTimeValid)) {
 		// no host time here but we had one last time, interpolate one
 		double rateScalar = (mCurrentOutputTime.mFlags & kAudioTimeStampRateScalarValid) ? mCurrentOutputTime.mRateScalar : 1.0;
@@ -100,7 +97,7 @@ void	AUTimestampGenerator::AddOutputTime(const AudioTimeStamp &inTimeStamp, Floa
 #if DEBUG
 		if (mVerbosity > 1)
 			if (mDiscontinuous)
-				printf("%-12.12s: *** DISCONTINUOUS, got %.f, expected %.f\n", mDebugName, mCurrentOutputTime.mSampleTime, mNextOutputSampleTime);
+				printf("%-20.20s: *** DISCONTINUOUS, got "TSGFMT", expected "TSGFMT"\n", mDebugName, (SInt64)mCurrentOutputTime.mSampleTime, (SInt64)mNextOutputSampleTime);
 #endif
 	}
 	mNextOutputSampleTime = mCurrentOutputTime.mSampleTime + expectedDeltaFrames;
@@ -108,6 +105,9 @@ void	AUTimestampGenerator::AddOutputTime(const AudioTimeStamp &inTimeStamp, Floa
 
 const AudioTimeStamp &	AUTimestampGenerator::GenerateInputTime(Float64 framesToAdvance, double inputSampleRate)
 {
+	if (mBypassed)
+		return mCurrentOutputTime;
+
 	double inputSampleTime;
 	
 	mCurrentInputTime.mFlags = kAudioTimeStampSampleTimeValid;
@@ -127,14 +127,14 @@ const AudioTimeStamp &	AUTimestampGenerator::GenerateInputTime(Float64 framesToA
 			// we had a discontinuous output time, need to resync by interpolating 
 			// a sample time that is appropriate to the host time
 			UInt64 deltaHostTime = mCurrentOutputTime.mHostTime - mLastOutputTime.mHostTime;
-			double deltaSeconds = double(deltaHostTime) / CAHostTimeBase::GetFrequency();
+			double deltaSeconds = double(deltaHostTime) * CAHostTimeBase::GetInverseFrequency();
 			// samples/second * seconds = samples
 			double deltaSamples = floor(inputSampleRate / rateScalar * deltaSeconds + 0.5);
 			double lastInputSampleTime = mCurrentInputTime.mSampleTime;
 			inputSampleTime = lastInputSampleTime + deltaSamples;
 #if DEBUG
 			if (mVerbosity > 1)
-				printf("%-12.12s: adjusted input time: %.0f -> %.0f (SR=%.3f, rs=%.3f)\n", mDebugName, lastInputSampleTime, inputSampleTime, inputSampleRate, rateScalar);
+				printf("%-20.20s: adjusted input time: "TSGFMT" -> "TSGFMT" (SR=%.3f, rs=%.3f)\n", mDebugName, (SInt64)lastInputSampleTime, (SInt64)inputSampleTime, inputSampleRate, rateScalar);
 #endif
 			mDiscontinuous = false;
 		} else {
@@ -153,7 +153,7 @@ const AudioTimeStamp &	AUTimestampGenerator::GenerateInputTime(Float64 framesToA
 		
 #if DEBUG
 		if (mVerbosity > 1)
-			printf("%-12.12s: adjusted input time: %.0f -> %.0f (SR=%.3f, rs=%.3f, delta=%.0f)\n", mDebugName, mNextInputSampleTime, inputSampleTime, inputSampleRate, mRateScalarAdj, mDiscontinuityDeltaSamples);
+			printf("%-20.20s: adjusted input time: %.0f -> %.0f (SR=%.3f, rs=%.3f, delta=%.0f)\n", mDebugName, mNextInputSampleTime, inputSampleTime, inputSampleRate, mRateScalarAdj, mDiscontinuityDeltaSamples);
 #endif
 		
 		mDiscontinuityDeltaSamples = 0.;
@@ -178,7 +178,7 @@ const AudioTimeStamp &	AUTimestampGenerator::GenerateInputTime(Float64 framesToA
 
 #if DEBUG
 	if (mVerbosity > 0) {
-		printf("%-12.12s: out = %8.0f (%10.3fs)  in = %8.0f  (%10.3fs)  delta = %8.0f  advance = %8.0f\n", mDebugName, mCurrentOutputTime.mSampleTime, DebugHostTime(mCurrentOutputTime), inputSampleTime, DebugHostTime(mCurrentInputTime), mCurrentOutputTime.mSampleTime - inputSampleTime, framesToAdvance);
+		printf("%-20.20s: out = "TSGFMT" (%10.3fs)  in = "TSGFMT"  (%10.3fs)  delta = "TSGFMT"  advance = "TSGFMT"\n", mDebugName, (SInt64)mCurrentOutputTime.mSampleTime, DebugHostTime(mCurrentOutputTime), (SInt64)inputSampleTime, DebugHostTime(mCurrentInputTime), (SInt64)(mCurrentOutputTime.mSampleTime - inputSampleTime), (SInt64)framesToAdvance);
 	}
 #endif
 	return mCurrentInputTime;

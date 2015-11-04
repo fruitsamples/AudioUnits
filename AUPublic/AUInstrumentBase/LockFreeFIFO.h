@@ -38,16 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*
- *  LockFreeFIFOWithFree.h
- *  TestSynth
- *
- *  Created by James McCartney on Thu Mar 25 2004.
- *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
- *
- *
-=============================================================================*/
-
 #include <Carbon/Carbon.h>
 
 

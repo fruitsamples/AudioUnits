@@ -38,12 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-//------------------------------------------------------------------------------------------
-//  AUPannerBase.cpp
-//  Created by James McCartney on Thu May 18 10:28:55 PDT 2006.
-//  Copyright 2006 Apple Computer, Inc. All rights reserved.
-//
-
 #include "AUPannerBase.h"
 #include "CABundleLocker.h"
 #include <AudioToolbox/AudioToolbox.h>
@@ -69,7 +63,7 @@ static Float32 kPannerParamDefault_Gain = 1.;
 
 //_____________________________________________________________________________
 //
-AUPannerBase::AUPannerBase(AudioUnit inAudioUnit)
+AUPannerBase::AUPannerBase(AudioComponentInstance inAudioUnit)
     : AUBase(inAudioUnit, 1, 1), mBypassEffect(false)
 {
 	{
@@ -114,9 +108,9 @@ AUPannerBase::~AUPannerBase()
 //_____________________________________________________________________________
 //
 /*! @method Initialize */
-ComponentResult		AUPannerBase::Initialize()
+OSStatus			AUPannerBase::Initialize()
 {
-	ComponentResult err = noErr;
+	OSStatus err = noErr;
 	AllocBypassMatrix();
 	err = UpdateBypassMatrix();
 	return err;
@@ -150,9 +144,9 @@ static AudioChannelLayoutTag DefaultTagForNumberOfChannels(UInt32 inNumberChanne
 //_____________________________________________________________________________
 //
 /*! @method UpdateBypassMatrix */
-ComponentResult		AUPannerBase::SetDefaultChannelLayoutsIfNone()
+OSStatus			AUPannerBase::SetDefaultChannelLayoutsIfNone()
 {
-	ComponentResult err = noErr;
+	OSStatus err = noErr;
 	
 	// if layout has not been set, then guess layout from number of channels
 	UInt32 inChannels = GetNumberOfInputChannels();
@@ -189,9 +183,9 @@ ComponentResult		AUPannerBase::SetDefaultChannelLayoutsIfNone()
 
 
 	
-ComponentResult		AUPannerBase::UpdateBypassMatrix()
+OSStatus			AUPannerBase::UpdateBypassMatrix()
 {
-	ComponentResult err = SetDefaultChannelLayoutsIfNone();
+	OSStatus err = SetDefaultChannelLayoutsIfNone();
 	if (err) return err;
 	
 	UInt32 inChannels = GetNumberOfInputChannels();
@@ -232,7 +226,7 @@ void				AUPannerBase::Cleanup()
 //_____________________________________________________________________________
 //
 /*! @method Reset */
-ComponentResult		AUPannerBase::Reset(		AudioUnitScope 				inScope,
+OSStatus			AUPannerBase::Reset(		AudioUnitScope 				inScope,
 										AudioUnitElement 			inElement)
 {
     return AUBase::Reset(inScope, inElement);
@@ -241,11 +235,11 @@ ComponentResult		AUPannerBase::Reset(		AudioUnitScope 				inScope,
 //_____________________________________________________________________________
 //
 /*! @method GetParameterInfo */
-ComponentResult		AUPannerBase::GetParameterInfo(	AudioUnitScope			inScope,
+OSStatus			AUPannerBase::GetParameterInfo(	AudioUnitScope			inScope,
 												AudioUnitParameterID	inParameterID,
 												AudioUnitParameterInfo	&outParameterInfo )
 {
-	ComponentResult result = noErr;
+	OSStatus result = noErr;
 
 	outParameterInfo.flags = 	kAudioUnitParameterFlag_IsWritable
 						+		kAudioUnitParameterFlag_IsReadable;
@@ -285,7 +279,7 @@ ComponentResult		AUPannerBase::GetParameterInfo(	AudioUnitScope			inScope,
 				outParameterInfo.unit = kAudioUnitParameterUnit_Meters;
 				outParameterInfo.minValue = 0.01;
 				outParameterInfo.maxValue = 1000.;
-				outParameterInfo.defaultValue = kPannerParamDefault_RefDistance;
+				outParameterInfo.defaultValue = kPannerParamDefault_CoordScale;
 				outParameterInfo.flags += kAudioUnitParameterFlag_DisplayLogarithmic;
 			break;
 
@@ -319,7 +313,7 @@ ComponentResult		AUPannerBase::GetParameterInfo(	AudioUnitScope			inScope,
 
 //_____________________________________________________________________________
 //
-ComponentResult 	AUPannerBase::GetParameter(		AudioUnitParameterID			inParamID,
+OSStatus 	AUPannerBase::GetParameter(		AudioUnitParameterID			inParamID,
 													AudioUnitScope 					inScope,
 													AudioUnitElement 				inElement,
 													Float32 &						outValue)
@@ -335,7 +329,7 @@ ComponentResult 	AUPannerBase::GetParameter(		AudioUnitParameterID			inParamID,
 											
 //_____________________________________________________________________________
 //
-ComponentResult 	AUPannerBase::SetParameter(		AudioUnitParameterID			inParamID,
+OSStatus 	AUPannerBase::SetParameter(		AudioUnitParameterID			inParamID,
 													AudioUnitScope 					inScope,
 													AudioUnitElement 				inElement,
 													Float32							inValue,
@@ -354,13 +348,13 @@ ComponentResult 	AUPannerBase::SetParameter(		AudioUnitParameterID			inParamID,
 //_____________________________________________________________________________
 //
 /*! @method GetPropertyInfo */
-ComponentResult		AUPannerBase::GetPropertyInfo (AudioUnitPropertyID	inID,
+OSStatus			AUPannerBase::GetPropertyInfo (AudioUnitPropertyID	inID,
 										AudioUnitScope				inScope,
 										AudioUnitElement			inElement,
 										UInt32 &					outDataSize,
 										Boolean &					outWritable)
 {
-	ComponentResult err = noErr;
+	OSStatus err = noErr;
 	switch (inID) {
 		case kAudioUnitProperty_BypassEffect:
 			if (inScope != kAudioUnitScope_Global)
@@ -378,12 +372,12 @@ ComponentResult		AUPannerBase::GetPropertyInfo (AudioUnitPropertyID	inID,
 //_____________________________________________________________________________
 //
 /*! @method GetProperty */
-ComponentResult		AUPannerBase::GetProperty (AudioUnitPropertyID 		inID,
+OSStatus			AUPannerBase::GetProperty (AudioUnitPropertyID 		inID,
 										AudioUnitScope 				inScope,
 										AudioUnitElement	 		inElement,
 										void *						outData)
 {
-	ComponentResult err = noErr;
+	OSStatus err = noErr;
 	switch (inID) 
 	{
 		case kAudioUnitProperty_BypassEffect:
@@ -401,7 +395,7 @@ ComponentResult		AUPannerBase::GetProperty (AudioUnitPropertyID 		inID,
 //_____________________________________________________________________________
 //
 /*! @method SetProperty */
-ComponentResult		AUPannerBase::SetProperty(AudioUnitPropertyID 		inID,
+OSStatus			AUPannerBase::SetProperty(AudioUnitPropertyID 		inID,
 										AudioUnitScope 				inScope,
 										AudioUnitElement 			inElement,
 										const void *				inData,
@@ -438,7 +432,7 @@ bool				AUPannerBase::StreamFormatWritable (AudioUnitScope	scope,
 //_____________________________________________________________________________
 //
 /*! @method ChangeStreamFormat */
-ComponentResult		AUPannerBase::ChangeStreamFormat (
+OSStatus			AUPannerBase::ChangeStreamFormat (
 									AudioUnitScope						inScope,
 									AudioUnitElement					inElement,
 									const CAStreamBasicDescription & 	inPrevFormat,
@@ -459,7 +453,7 @@ ComponentResult		AUPannerBase::ChangeStreamFormat (
 //_____________________________________________________________________________
 //
 /*! @method Render */
-ComponentResult 	AUPannerBase::Render(AudioUnitRenderActionFlags &		ioActionFlags,
+OSStatus 	AUPannerBase::Render(AudioUnitRenderActionFlags &		ioActionFlags,
 									const AudioTimeStamp &			inTimeStamp,
 									UInt32							inNumberFrames)
 {
@@ -472,12 +466,12 @@ ComponentResult 	AUPannerBase::Render(AudioUnitRenderActionFlags &		ioActionFlag
 //_____________________________________________________________________________
 //
 /*! @method Render */
-ComponentResult 	AUPannerBase::BypassRender(AudioUnitRenderActionFlags &		ioActionFlags,
+OSStatus 	AUPannerBase::BypassRender(AudioUnitRenderActionFlags &		ioActionFlags,
 									const AudioTimeStamp &			inTimeStamp,
 									UInt32							inNumberFrames)
 {
 	AudioUnitRenderActionFlags xflags = 0;
-	ComponentResult result = PullInput(0, xflags, inTimeStamp, inNumberFrames);
+	OSStatus result = PullInput(0, xflags, inTimeStamp, inNumberFrames);
 	if (result) return false;
 	bool isSilent = xflags & kAudioUnitRenderAction_OutputIsSilence;
 
@@ -627,9 +621,10 @@ UInt32 AUPannerBase::GetChannelLayoutTags(		AudioUnitScope				inScope,
 				outTags[2] = kAudioChannelLayoutTag_AudioUnit_5_0;
 				outTags[3] = kAudioChannelLayoutTag_AudioUnit_6_0;
 				outTags[4] = kAudioChannelLayoutTag_AudioUnit_7_0;
-				outTags[5] = kAudioChannelLayoutTag_AudioUnit_8;
+				outTags[5] = kAudioChannelLayoutTag_AudioUnit_7_0_Front;
+				outTags[6] = kAudioChannelLayoutTag_AudioUnit_8;
 			}
-			return 6;
+			return 7;
 		default: {
 			OSStatus err = kAudioUnitErr_InvalidScope;
 			throw err;

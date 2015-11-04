@@ -38,10 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*=============================================================================
-
-=============================================================================*/
-
 #ifndef __AUBaseHelper_h__
 #define __AUBaseHelper_h__
 
@@ -53,6 +49,11 @@
 	#include <AUComponent.h>
 #endif
 
+#include "AUBase.h"
+
+
+UInt32 FindInvalidSamples(Float32 *inSource, UInt32 inFramesToProcess, bool &hasNonZero, bool zapInvalidSamples);
+
 
 // helpers for dealing with the file-references dictionary in an AUPreset
 
@@ -63,9 +64,6 @@ GetFileRefPath (CFDictionaryRef parent, CFStringRef frKey, CFStringRef * fPath);
 // if not NULL, then the key value is added to it
 extern "C" CFMutableDictionaryRef 
 CreateFileRefDict (CFStringRef fKey, CFStringRef fPath, CFMutableDictionaryRef fileRefDict);
-
-extern "C" bool 
-IsLeopardOrLater ();	// returns true if we are running on leopard or later
 
 #if DEBUG
 	void PrintAUParamEvent (AudioUnitParameterEvent& event, FILE* f);

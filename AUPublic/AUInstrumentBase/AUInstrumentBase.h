@@ -38,16 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*
- *  AUInstrumentBase.h
- *  TestSynth
- *
- *  Created by James McCartney on Mon Mar 29 2004.
- *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
- *
- *
-=============================================================================*/
-
 #ifndef __AUInstrumentBase__
 #define __AUInstrumentBase__
 
@@ -76,14 +66,14 @@ public:
 							UInt32							numParts = 0);
 	virtual ~AUInstrumentBase();
 
-	virtual ComponentResult		Initialize();
+	virtual OSStatus			Initialize();
 	
 	virtual void				Cleanup();
 	
 	virtual AUElement*			CreateElement(			AudioUnitScope					scope,
 														AudioUnitElement				element);
 
-	virtual ComponentResult		Reset(					AudioUnitScope 					inScope,
+	virtual OSStatus			Reset(					AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement);
 														
 	virtual bool				ValidFormat(			AudioUnitScope					inScope,
@@ -93,26 +83,26 @@ public:
 	virtual bool				StreamFormatWritable(	AudioUnitScope					scope,
 														AudioUnitElement				element);
 
-	virtual ComponentResult		Render(					AudioUnitRenderActionFlags &	ioActionFlags,
+	virtual OSStatus			Render(					AudioUnitRenderActionFlags &	ioActionFlags,
 														const AudioTimeStamp &			inTimeStamp,
 														UInt32							inNumberFrames);
 
-	virtual ComponentResult		StartNote(		MusicDeviceInstrumentID 	inInstrument, 
+	virtual OSStatus			StartNote(		MusicDeviceInstrumentID 	inInstrument, 
 												MusicDeviceGroupID 			inGroupID, 
 												NoteInstanceID *			outNoteInstanceID, 
 												UInt32 						inOffsetSampleFrame, 
 												const MusicDeviceNoteParams &inParams);
 
-	virtual ComponentResult		StopNote(		MusicDeviceGroupID 			inGroupID, 
+	virtual OSStatus			StopNote(		MusicDeviceGroupID 			inGroupID, 
 												NoteInstanceID 				inNoteInstanceID, 
 												UInt32 						inOffsetSampleFrame);
 
-	virtual ComponentResult		RealTimeStartNote(		SynthGroupElement 			*inGroup,
+	virtual OSStatus			RealTimeStartNote(		SynthGroupElement 			*inGroup,
 														NoteInstanceID 				inNoteInstanceID, 
 														UInt32 						inOffsetSampleFrame, 
 														const MusicDeviceNoteParams &inParams);
 	
-	virtual ComponentResult		RealTimeStopNote(		MusicDeviceGroupID 			inGroupID, 
+	virtual OSStatus			RealTimeStopNote(		MusicDeviceGroupID 			inGroupID, 
 														NoteInstanceID 				inNoteInstanceID, 
 														UInt32 						inOffsetSampleFrame);
 	
@@ -210,7 +200,7 @@ public:
 							UInt32							numGroups = 32,
 							UInt32							numParts = 0);
 										
-	virtual ComponentResult		RealTimeStartNote(			SynthGroupElement 			*inGroup, 
+	virtual OSStatus			RealTimeStartNote(			SynthGroupElement 			*inGroup, 
 															NoteInstanceID 				inNoteInstanceID, 
 															UInt32 						inOffsetSampleFrame, 
 															const MusicDeviceNoteParams &inParams);
@@ -229,18 +219,18 @@ public:
 							UInt32							numGroups,
 							UInt32							numParts);
 							
-	virtual ComponentResult		GetPropertyInfo(		AudioUnitPropertyID				inID,
+	virtual OSStatus			GetPropertyInfo(		AudioUnitPropertyID				inID,
 														AudioUnitScope					inScope,
 														AudioUnitElement				inElement,
 														UInt32 &						outDataSize,
 														Boolean &						outWritable);
 
-	virtual ComponentResult		GetProperty(			AudioUnitPropertyID 			inID,
+	virtual OSStatus			GetProperty(			AudioUnitPropertyID 			inID,
 														AudioUnitScope 					inScope,
 														AudioUnitElement			 	inElement,
 														void *							outData);
 
-	virtual ComponentResult		SetProperty(			AudioUnitPropertyID 			inID,
+	virtual OSStatus			SetProperty(			AudioUnitPropertyID 			inID,
 														AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement,
 														const void *					inData,

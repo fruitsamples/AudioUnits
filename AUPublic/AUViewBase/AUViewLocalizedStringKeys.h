@@ -38,11 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*=============================================================================
-	AUViewLocalizedStringKeys.h
-	
-=============================================================================*/
-
 #ifndef __AUViewLocalizedStringKeys_h__
 #define __AUViewLocalizedStringKeys_h__
 

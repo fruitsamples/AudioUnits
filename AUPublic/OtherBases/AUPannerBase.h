@@ -38,12 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-//------------------------------------------------------------------------------------------
-//  AUPannerBase.h
-//  Created by James McCartney on Thu May 18 10:07:49 PDT 2006.
-//  Copyright 2006 Apple Computer, Inc. All rights reserved.
-//
-
 #ifndef __AUPannerBase_h__
 #define __AUPannerBase_h__
 
@@ -58,42 +52,42 @@ class AUPannerBase : public AUBase
 {
 public:
 /*! @ctor AUPannerBase */
-    AUPannerBase(AudioUnit inAudioUnit);
+    AUPannerBase(AudioComponentInstance inAudioUnit);
 /*! @dtor ~AUPannerBase */
     virtual ~AUPannerBase();
     
 	/*! @method Initialize */
-	virtual ComponentResult		Initialize();
+	virtual OSStatus			Initialize();
 
 	/*! @method Cleanup */
 	virtual void				Cleanup();
 
 
 	/*! @method Reset */
-	virtual ComponentResult		Reset(		AudioUnitScope 				inScope,
+	virtual OSStatus			Reset(		AudioUnitScope 				inScope,
 											AudioUnitElement 			inElement);
 
 	/*! @method GetParameterInfo */
-	virtual ComponentResult		GetParameterInfo(	AudioUnitScope			inScope,
+	virtual OSStatus			GetParameterInfo(	AudioUnitScope			inScope,
 													AudioUnitParameterID	inParameterID,
 													AudioUnitParameterInfo	&outParameterInfo );
 
 
 	/*! @method GetPropertyInfo */
-	virtual ComponentResult		GetPropertyInfo (AudioUnitPropertyID	inID,
+	virtual OSStatus			GetPropertyInfo (AudioUnitPropertyID	inID,
 											AudioUnitScope				inScope,
 											AudioUnitElement			inElement,
 											UInt32 &					outDataSize,
 											Boolean &					outWritable);
 
 	/*! @method GetProperty */
-	virtual ComponentResult		GetProperty (AudioUnitPropertyID 		inID,
+	virtual OSStatus			GetProperty (AudioUnitPropertyID 		inID,
 											AudioUnitScope 				inScope,
 											AudioUnitElement	 		inElement,
 											void *						outData);
 
 	/*! @method SetProperty */
-	virtual ComponentResult		SetProperty(AudioUnitPropertyID 		inID,
+	virtual OSStatus			SetProperty(AudioUnitPropertyID 		inID,
 											AudioUnitScope 				inScope,
 											AudioUnitElement 			inElement,
 											const void *				inData,
@@ -105,7 +99,7 @@ public:
 											AudioUnitElement			element);
 
 	/*! @method ChangeStreamFormat */
-	virtual	ComponentResult		ChangeStreamFormat (
+	virtual	OSStatus			ChangeStreamFormat (
 										AudioUnitScope						inScope,
 										AudioUnitElement					inElement,
 										const CAStreamBasicDescription & 	inPrevFormat,
@@ -121,17 +115,17 @@ public:
 	
 
 	/*! @method Render */
-	virtual ComponentResult 	Render(AudioUnitRenderActionFlags &		ioActionFlags,
+	virtual OSStatus 	Render(AudioUnitRenderActionFlags &		ioActionFlags,
 										const AudioTimeStamp &			inTimeStamp,
 										UInt32							inNumberFrames);
 
 	/*! @method Render */
-	virtual ComponentResult 	PannerRender(AudioUnitRenderActionFlags &		ioActionFlags,
+	virtual OSStatus 	PannerRender(AudioUnitRenderActionFlags &		ioActionFlags,
 										const AudioTimeStamp &			inTimeStamp,
 										UInt32							inNumberFrames) = 0;
 
 	/*! @method BypassRender */
-	virtual ComponentResult 	BypassRender(AudioUnitRenderActionFlags &		ioActionFlags,
+	virtual OSStatus 	BypassRender(AudioUnitRenderActionFlags &		ioActionFlags,
 										const AudioTimeStamp &			inTimeStamp,
 										UInt32							inNumberFrames);
 
@@ -162,13 +156,13 @@ public:
 	UInt32						GetNumberOfOutputChannels() { return ((AUIOElement*)Outputs().SafeGetElement(0))->NumberChannels(); }
 
 	/*! @method GetParameter */
-	virtual ComponentResult 	GetParameter(			AudioUnitParameterID			inParamID,
+	virtual OSStatus 	GetParameter(			AudioUnitParameterID			inParamID,
 														AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement,
 														Float32 &						outValue);
 												
 	/*! @method SetParameter */
-	virtual ComponentResult 	SetParameter(			AudioUnitParameterID			inParamID,
+	virtual OSStatus 	SetParameter(			AudioUnitParameterID			inParamID,
 														AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement,
 														Float32							inValue,
@@ -241,10 +235,10 @@ protected:
 	void						AllocBypassMatrix();
 
 	/*! @method UpdateBypassMatrix */
-	ComponentResult				UpdateBypassMatrix();
+	OSStatus					UpdateBypassMatrix();
 
 	/*! @method SetDefaultChannelLayoutsIfNone */
-	ComponentResult				SetDefaultChannelLayoutsIfNone();
+	OSStatus					SetDefaultChannelLayoutsIfNone();
 	
 	/*! @method ChannelLayoutTagIsSupported */
 	bool						ChannelLayoutTagIsSupported(	AudioUnitScope			inScope, 

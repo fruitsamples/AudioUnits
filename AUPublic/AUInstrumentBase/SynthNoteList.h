@@ -38,16 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*
- *  SynthNoteList.h
- *  TestSynth
- *
- *  Created by James McCartney on Mon Mar 29 2004.
- *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
- *
-=============================================================================*/
-
-
 #ifndef __SynthNoteList__
 #define __SynthNoteList__
 

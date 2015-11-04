@@ -38,12 +38,7 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*=============================================================================
-
-=============================================================================*/
-
 #include "AUBaseHelper.h"
-#include "CACFDictionary.h"
 
 #if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
 	#include <AudioUnit/AudioUnitProperties.h>
@@ -67,6 +62,39 @@ OSStatus	GetFileRefPath (CFDictionaryRef parent, CFStringRef frKey, CFStringRef 
 	return noErr;
 }
 
+// write valid samples check, with bool for zapping
+
+UInt32 FindInvalidSamples(Float32 *inSource, UInt32 inFramesToProcess, bool &outHasNonZero, bool zapInvalidSamples)
+{
+	float *sourceP = inSource;
+	
+	UInt32 badSamplesDetected = 0;
+	bool hasNonZero = false;
+	for (UInt32 i=0; i < inFramesToProcess; i++)
+	{
+		float  input = *(sourceP++);
+		
+		if(input > 0) 
+			hasNonZero = true;
+
+		float absx = fabs(input);
+		
+		// a bad number!
+		if (!(absx < 1e15))
+		{
+			if (!(absx == 0))
+			{
+				//printf("\tbad sample: %f\n", input);
+				badSamplesDetected++;
+				if (zapInvalidSamples)
+					input = 0;
+			}
+		} 
+	}
+	
+	return badSamplesDetected;
+}
+
 
 CFMutableDictionaryRef CreateFileRefDict (CFStringRef fKey, CFStringRef fPath, CFMutableDictionaryRef fileRefDict)
 {
@@ -76,34 +104,6 @@ CFMutableDictionaryRef CreateFileRefDict (CFStringRef fKey, CFStringRef fPath, C
 	CFDictionarySetValue (fileRefDict, fKey, fPath);
 	
 	return fileRefDict;
-}
-
-bool IsLeopardOrLater ()
-{
-	static int isLeopard = -1;
-	if (isLeopard == -1)
-	{		
-#if TARGET_OS_MAC
-		isLeopard = 1;
-
-		SInt32 macOSVers;
-		if (Gestalt(gestaltSystemVersion, &macOSVers) == noErr) {
-			int vers = macOSVers >> 8;
-			int subVers = (macOSVers >> 4) & 0xF;
-			if (vers >= 0x10) {
-				if (subVers > 4)
-					isLeopard = 1;
-				else
-					isLeopard = 0;
-			} else
-				isLeopard = 0;
-		} else
-			isLeopard = 0;
-#else
-		isLeopard = 0;
-#endif
-	}
-	return isLeopard > 0;
 }
 
 #if DEBUG

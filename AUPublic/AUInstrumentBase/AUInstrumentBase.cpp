@@ -38,15 +38,6 @@
 			STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 			POSSIBILITY OF SUCH DAMAGE.
 */
-/*
- *  AUInstrumentBase.cpp
- *  TestSynth
- *
- *  Created by James McCartney on Mon Mar 29 2004.
- *  Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
- *
-=============================================================================*/
-
 #include "AUInstrumentBase.h"
 
 #if DEBUG
@@ -146,7 +137,7 @@ void		AUInstrumentBase::AddFreeNote(SynthNote* inNote)
 	mFreeNotes.AddNote(inNote);
 }
 
-ComponentResult		AUInstrumentBase::Initialize()
+OSStatus			AUInstrumentBase::Initialize()
 {
 /*
 TO DO:
@@ -172,7 +163,7 @@ void				AUInstrumentBase::Cleanup()
 }
 
 
-ComponentResult		AUInstrumentBase::Reset(			AudioUnitScope 					inScope,
+OSStatus			AUInstrumentBase::Reset(			AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement)
 {
 #if DEBUG_PRINT
@@ -201,7 +192,7 @@ ComponentResult		AUInstrumentBase::Reset(			AudioUnitScope 					inScope,
 			group->Reset();
 		}
 	}
-	return noErr;
+	return MusicDeviceBase::Reset(inScope, inElement);
 }
 
 void		AUInstrumentBase::PerformEvents(const AudioTimeStamp& inTimeStamp)
@@ -262,7 +253,7 @@ void		AUInstrumentBase::PerformEvents(const AudioTimeStamp& inTimeStamp)
 }
 
 														
-ComponentResult		AUInstrumentBase::Render(   AudioUnitRenderActionFlags &	ioActionFlags,
+OSStatus			AUInstrumentBase::Render(   AudioUnitRenderActionFlags &	ioActionFlags,
 												const AudioTimeStamp &			inTimeStamp,
 												UInt32							inNumberFrames)
 {
@@ -317,7 +308,7 @@ bool				AUInstrumentBase::StreamFormatWritable(	AudioUnitScope					scope,
 	return IsInitialized() ? false : true;
 }
 
-ComponentResult		AUInstrumentBase::RealTimeStartNote(	SynthGroupElement 			*inGroup,
+OSStatus			AUInstrumentBase::RealTimeStartNote(	SynthGroupElement 			*inGroup,
 															NoteInstanceID 				inNoteInstanceID, 
 															UInt32 						inOffsetSampleFrame, 
 															const MusicDeviceNoteParams &inParams)
@@ -347,7 +338,7 @@ SynthGroupElement *	AUInstrumentBase::GetElForGroupID (MusicDeviceGroupID	inGrou
 	throw static_cast<OSStatus>(kAudioUnitErr_InvalidElement);
 }
 
-ComponentResult		AUInstrumentBase::RealTimeStopNote(
+OSStatus			AUInstrumentBase::RealTimeStopNote(
 												MusicDeviceGroupID 			inGroupID, 
 												NoteInstanceID 				inNoteInstanceID, 
 												UInt32 						inOffsetSampleFrame)
@@ -380,7 +371,7 @@ SynthGroupElement *	AUInstrumentBase::GetElForNoteID (NoteInstanceID inNoteID)
 	throw static_cast<OSStatus>(kAudioUnitErr_InvalidElement);
 }
 
-ComponentResult		AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrument, 
+OSStatus			AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrument, 
 													MusicDeviceGroupID 			inGroupID, 
 													NoteInstanceID *			outNoteInstanceID, 
 													UInt32 						inOffsetSampleFrame, 
@@ -389,7 +380,7 @@ ComponentResult		AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrum
 #if DEBUG_PRINT
 	printf("AUInstrumentBase::StartNote %d\n", inGroupID);
 #endif
-	ComponentResult err = noErr;
+	OSStatus err = noErr;
 	
 	NoteInstanceID noteID; 
 	if (outNoteInstanceID) {
@@ -424,14 +415,14 @@ ComponentResult		AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrum
 	return err;
 }
 
-ComponentResult		AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID, 
+OSStatus			AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID, 
 												NoteInstanceID 				inNoteInstanceID, 
 												UInt32 						inOffsetSampleFrame)
 {
 #if DEBUG_PRINT
 	printf("AUInstrumentBase::StopNote %d %d\n", inGroupID, inNoteInstanceID);
 #endif
-	ComponentResult err = noErr;
+	OSStatus err = noErr;
 
 	if (InRenderThread ())
 	{		
@@ -668,7 +659,7 @@ AUMonotimbralInstrumentBase::AUMonotimbralInstrumentBase(
 {
 }
 
-ComponentResult		AUMonotimbralInstrumentBase::RealTimeStartNote(	
+OSStatus			AUMonotimbralInstrumentBase::RealTimeStartNote(	
 															SynthGroupElement 			*inGroup, 
 															NoteInstanceID 				inNoteInstanceID, 
 															UInt32 						inOffsetSampleFrame, 
@@ -696,13 +687,13 @@ ComponentResult		AUMonotimbralInstrumentBase::RealTimeStartNote(
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-ComponentResult		AUMultitimbralInstrumentBase::GetPropertyInfo(AudioUnitPropertyID	inID,
+OSStatus			AUMultitimbralInstrumentBase::GetPropertyInfo(AudioUnitPropertyID	inID,
 												AudioUnitScope				inScope,
 												AudioUnitElement			inElement,
 												UInt32 &					outDataSize,
 												Boolean &					outWritable)
 {
-	ComponentResult result = noErr;
+	OSStatus result = noErr;
 	
 	switch (inID) 
 	{
@@ -718,12 +709,12 @@ ComponentResult		AUMultitimbralInstrumentBase::GetPropertyInfo(AudioUnitProperty
 	return result;
 }
 
-ComponentResult		AUMultitimbralInstrumentBase::GetProperty(	AudioUnitPropertyID 	inID,
+OSStatus			AUMultitimbralInstrumentBase::GetProperty(	AudioUnitPropertyID 	inID,
 												AudioUnitScope 				inScope,
 												AudioUnitElement		 	inElement,
 												void *						outData)
 {
-	ComponentResult result = noErr;
+	OSStatus result = noErr;
 
 	switch (inID) 
 	{
@@ -742,13 +733,13 @@ ComponentResult		AUMultitimbralInstrumentBase::GetProperty(	AudioUnitPropertyID 
 
 
 
-ComponentResult		AUMultitimbralInstrumentBase::SetProperty(  AudioUnitPropertyID 			inID,
+OSStatus			AUMultitimbralInstrumentBase::SetProperty(  AudioUnitPropertyID 			inID,
 																AudioUnitScope 					inScope,
 																AudioUnitElement 				inElement,
 																const void *					inData,
 																UInt32 							inDataSize)
 {
-	ComponentResult result = noErr;
+	OSStatus result = noErr;
 
 	switch (inID) 
 	{
